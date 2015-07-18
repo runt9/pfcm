@@ -1,0 +1,26 @@
+{
+  "name": "pfcm",
+  "authors": [
+    "Alex Vester <runt9ab@gmail.com>"
+  ],
+  "description": "Pathfinder Character Manager",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "~2.8.3",
+    "angular": "1.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/runt9/pfcm/tree/master"
+  }
+}
