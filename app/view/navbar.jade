@@ -1,0 +1,11 @@
+.navbar.navbar-default(role='navigation')
+    .navbar-header
+        a.navbar-brand(href='#') Pathfinder Character Manager
+    .navbar-collapse.collapse
+        ul.nav.navbar-nav
+            li.active: a(href='#') Home
+        ul.nav.navbar-nav.navbar-right
+            if user.authenticated
+                li: a(href='#') Logout
+            else
+                li: a(href='/login') Login

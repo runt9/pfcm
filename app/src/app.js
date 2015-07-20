@@ -8,10 +8,19 @@ var app = module.exports = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/view');
 app.use(express.static('resources'));
+var env = app.settings.env;
+app.locals.user = {
+    authenticated: false
+};
 
 // Routes
 app.get('/', function(req, res) {
     res.render('index', {title: 'Test', message: 'Test2'});
+});
+
+app.get('/login', function(req, res) {
+    app.locals.user.authenticated = true;
+    res.sendStatus(200);
 });
 
 // Error handlers
@@ -29,5 +38,5 @@ var server = app.listen(8585, 'localhost', function() {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('Server started and listening at http://%s:%s', host, port);
+    console.log('Server started in %s mode and listening at http://%s:%s', env, host, port);
 });

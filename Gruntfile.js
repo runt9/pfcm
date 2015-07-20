@@ -10,54 +10,98 @@ module.exports = function(grunt) {
     // Define the configuration for all the tasks
     grunt.initConfig({
         paths: {
-            app: 'app',
-            dist: 'dist'
+            app: {
+                base: 'app',
+                resources: 'app/resources',
+                src: 'app/src',
+                views: 'app/view'
+            },
+            dist: {
+                base: 'dist',
+                css: 'dist/resources/css',
+                js: 'dist/resources/js'
+            }
         },
 
         pkg: grunt.file.readJSON('package.json'),
 
-        clean: {
+        bower_concat: {
+            all: {
+                dest: '<%= paths.dist.js %>/libs.js',
+                cssDest: '<%= paths.dist.css %>/libs.css',
+                bowerOptions: {
+                    relative: false
+                }
+            }
+        },
+
+        clean: ['<%= paths.dist.base %>/*', '!<%= paths.dist.base %>/.git'],
+
+        concat: {
+            dist: {
+                files: [
+                    {'<%= paths.dist.js %>/<%= pkg.name %>.js': ['<%= paths.app.resources %>/js/**/*.js']},
+                    {'<%= paths.dist.base %>/app/app.js': ['<%= paths.app.src %>/**/*.js']}
+                ]
+            }
+        },
+
+        copy: {
             dist: {
                 files: [{
-                    dot: true,
-                    src: ['.tmp', '<%= paths.dist %>/*', '!<%= paths.dist %>/.git']
+                    expand: true,
+                    src: ['<%= paths.app.views %>/**/*.jade'],
+                    dest: '<%= paths.dist.base %>/'
                 }]
             }
         },
 
-        concat: {
-            js: {
-                src: ['<%= paths.app %>/**/*.js'],
-                dest: '<%= paths.dist %>/<%= pkg.name %>.js'
-            },
-            css: {
-                src: ['<%= paths.app %>/**/*.css'],
-                dest: '<%= paths.dist %>/<%= pkg.name %>.css'
+        cssmin: {
+            target: {
+                files: {
+                    '<%= paths.dist.css %>/<%= pkg.name %>.min.css': ['<%= paths.dist.css %>/<%= pkg.name %>.css'],
+                    '<%= paths.dist.css %>/libs.min.css': ['<%= paths.dist.css %>/libs.css']
+                }
             }
         },
 
-        cssmin: {
-            css: {
-                src: '<%= concat.css.dest %>',
-                dest: '<%= paths.dist %>/<%= pkg.name %>.min.css'
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded',
+                    compass: false,
+                    loadPath: '<%= paths.app.base %>'
+                },
+                files: {
+                    '<%= paths.dist.css %>/<%= pkg.name %>.css': ['<%= paths.app.resources %>/**/*.scss']
+                }
             }
         },
 
         uglify: {
-            options: {
-                banner: '/*! <=% pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
             dist: {
                 files: {
-                    '<%= paths.dist %>/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
+                    '<%= paths.dist.js %>/<%= pkg.name %>.min.js': ['<%= paths.dist.js %>/<%= pkg.name %>.js'],
+                    '<%= paths.dist.js %>/libs.min.js': ['<%= paths.dist.js %>/libs.js']
                 }
             }
         }
     });
 
-    grunt.registerTask('build', [
-        'clean:dist',
+    grunt.registerTask('build-dev', [
+        'clean',
+        'bower_concat',
         'concat',
+        'sass',
+        'copy'
+    ]);
+
+    grunt.registerTask('build', [
+        'clean',
+        'bower_concat',
+        'concat',
+        'copy',
+        'sass',
         'uglify',
         'cssmin'
     ]);
