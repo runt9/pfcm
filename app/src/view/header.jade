@@ -1,6 +1,6 @@
 - isDev = settings.env == 'development'
 doctype html
-html
+html(ng-app="PFCM")
     head
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -14,5 +14,5 @@ html
             link(rel='stylesheet', href='css/pfcm.min.css')
             script(src="js/libs.min.js")
             script(src="js/pfcm.min.js")
-body
-    include navbar.jade
+    body(ng-controller="mainController")
+        include navbar.jade

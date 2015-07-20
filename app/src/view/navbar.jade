@@ -5,7 +5,5 @@
         ul.nav.navbar-nav
             li.active: a(href='#') Home
         ul.nav.navbar-nav.navbar-right
-            if user.authenticated
-                li: a(href='/logout') Logout
-            else
-                li: a(href='/login') Login
+                li(ng-show="user.authenticated", ng-click="logout()"): a.clickable Logout
+                li(ng-show="!user.authenticated", ng-click="login()"): a.clickable Login

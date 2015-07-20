@@ -13,8 +13,4 @@ app.use(require('controller/authController'));
 // Error handler import
 app.use(require('controller/errorController'));
 
-app.locals.user = {
-    authenticated: false
-};
-
 module.exports = app;
