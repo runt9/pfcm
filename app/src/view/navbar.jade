@@ -6,6 +6,6 @@
             li.active: a(href='#') Home
         ul.nav.navbar-nav.navbar-right
             if user.authenticated
-                li: a(href='#') Logout
+                li: a(href='/logout') Logout
             else
                 li: a(href='/login') Login

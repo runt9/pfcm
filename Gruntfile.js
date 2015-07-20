@@ -40,8 +40,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 files: [
-                    {'<%= paths.dist.js %>/<%= pkg.name %>.js': ['<%= paths.app.resources %>/js/**/*.js']},
-                    {'<%= paths.dist.base %>/app/app.js': ['<%= paths.app.src %>/**/*.js']}
+                    {'<%= paths.dist.js %>/<%= pkg.name %>.js': ['<%= paths.app.resources %>/js/**/*.js']}
                 ]
             }
         },
@@ -50,7 +49,7 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    src: ['<%= paths.app.views %>/**/*.jade'],
+                    src: ['<%= paths.app.src %>/**'],
                     dest: '<%= paths.dist.base %>/'
                 }]
             }
