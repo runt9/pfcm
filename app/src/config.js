@@ -1,7 +1,8 @@
 var config = {
     express: {
         port: 8585,
-        ip: "127.0.0.1"
+        ip: "127.0.0.1",
+        sessionSecret: 'pleasenosecretguessplox'
     },
     
     db: {

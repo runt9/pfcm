@@ -2,6 +2,15 @@ var router = require('express').Router();
 var passport = require('index').passport;
 var logger = require('logger');
 
+router.get('/authenticate', function(req, res, next) {
+    logger.debug('authenticate');
+    if (req.isAuthenticated()) {
+        res.status(200).send(req.user.username);
+    } else {
+        res.sendStatus(401);
+    }
+});
+
 // Handle login
 router.post('/login', function(req, res, next) {
     logger.debug('login');
@@ -25,7 +34,7 @@ router.post('/login', function(req, res, next) {
                 return res.status(403).send(err.message);
             } else {
                 logger.info('User %s successfully logged in', user.username);
-                return res.sendStatus(200);
+                return res.status(200).send(user.username);
             }
         });
     })(req, res, next);

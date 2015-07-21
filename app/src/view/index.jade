@@ -1,2 +1,11 @@
 include header.jade
-h1!= message
+.container
+    h2.text-center(ng-show="!user.authenticated")
+        span You must&nbsp;
+            a.clickable(ng-click="login()") login
+        span &nbsp;to use Pathfinder Character Manager
+
+    h2.text-center(ng-show="user.authenticated")
+        span Welcome to the Pathfinder Character Manager
+
+include login_modal.jade

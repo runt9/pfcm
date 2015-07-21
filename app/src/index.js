@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(require('express-session')({
-    secret: 'go away',
+    secret: config.express.sessionSecret,
     resave: false,
     saveUninitialized: false
 }));
