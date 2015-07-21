@@ -1,9 +1,18 @@
-var app = require('index');
-var config = module.exports;
-
-config.env = app.settings.env;
-
-config.express = {
-    port: 8585,
-    ip: '127.0.0.1'
+var config = {
+    "express": {
+        "port": 8585,
+        "ip": "127.0.0.1"
+    },
+    
+    "db": {
+        "client": "pg",
+        "connection": {
+            "host": "127.0.0.1",
+            "user": "pfcm",
+            "password": "pfcmpass",
+            "database": "runt9"
+        }
+    }
 };
+
+module.exports = config;
