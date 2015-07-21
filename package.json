@@ -21,8 +21,10 @@
     "bookshelf": "~0.8.1",
     "pg": "~4.4.0",
     "knex": "~0.8.6",
-    "crypto": "0.0.3"
-},
+    "crypto": "0.0.3",
+    "moment": "~2.10.3",
+    "lodash": "~3.10.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-bower-concat": "~0.5.0",

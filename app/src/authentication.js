@@ -1,6 +1,7 @@
 var passport = require('index').passport;
 var User = require('model/user');
 var crypto = require('crypto');
+var logger = require('logger');
 LocalStrategy = require('passport-local').Strategy;
 
 // Main auth function
@@ -10,6 +11,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
         var user = data;
         // If no user found, error out, obviously.
         if (user === null) {
+            logger.debug('Failed to find user [%s] during auth', username);
             return done(null, false, {message: 'Invalid username or password'});
         }
 
@@ -19,6 +21,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
         if (hashPwd == user.get('password')) {
             return done(null, user.toJSON());
         } else {
+            logger.debug('User [%s] entered invalid password', username);
             return done(null, false, {message: 'Invalid username or password'});
         }
     });

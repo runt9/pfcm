@@ -6,7 +6,7 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', fu
     };
 
     $scope.login = function() {
-        $http.get('/login').success(function() {
+        $http.post('/login', {username: "test", password: "test"}).success(function() {
             $scope.user.authenticated = true;
         }).error(function() {
             $scope.user.authenticated = false;
