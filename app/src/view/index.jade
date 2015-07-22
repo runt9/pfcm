@@ -5,7 +5,7 @@ include header.jade
             a.clickable(ng-click="login()") login
         span &nbsp;to use Pathfinder Character Manager
 
-    h2.text-center(ng-show="user.authenticated")
-        span Welcome to the Pathfinder Character Manager
+    .characterSheet(ng-show="user.authenticated")
+    include character_sheet.jade
 
 include login_modal.jade

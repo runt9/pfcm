@@ -9,6 +9,7 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$
         $scope.user.authenticated = true;
         $scope.loading = false;
     }).error(function() {
+        $scope.user.authenticated = false;
         $scope.loading = false;
     });
 
@@ -23,13 +24,13 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$
             backdrop: true,
             size: 'sm',
             controller: function($scope, $modalInstance, user) {
-                $scope.loading = false;
                 $scope.error = '';
                 $scope.user = user;
 
                 $scope.submit = function() {
                     $scope.loading = true;
                     $http.post('/login', {username: $scope.user.username, password: $scope.user.password}).success(function(response) {
+                        $scope.loading = false;
                         $modalInstance.close(response);
                     }).error(function(response) {
                         $scope.error = response;
@@ -56,6 +57,9 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$
 
     $scope.logout = function() {
         $scope.user.authenticated = false;
-        $http.get('/logout');
+        $scope.loading = true;
+        $http.get('/logout').then(function() {
+            $scope.loading = false;
+        });
     };
 }]);

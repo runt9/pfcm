@@ -47,11 +47,10 @@ module.exports = function(grunt) {
 
         copy: {
             dist: {
-                files: [{
-                    expand: true,
-                    src: ['<%= paths.app.src %>/**'],
-                    dest: '<%= paths.dist.base %>/'
-                }]
+                files: [
+                    {expand: true, dest: '<%= paths.dist.base %>/', src: ['<%= paths.app.src %>/**']},
+                    {expand: true, flatten: true, dest: '<%= paths.dist.base %>/resources/images/', src: ['<%= paths.app.resources %>/images/*']}
+                ]
             }
         },
 
@@ -72,7 +71,7 @@ module.exports = function(grunt) {
                     loadPath: '<%= paths.app.base %>'
                 },
                 files: {
-                    '<%= paths.dist.css %>/<%= pkg.name %>.css': ['<%= paths.app.resources %>/**/*.scss']
+                    '<%= paths.dist.css %>/<%= pkg.name %>.css': ['<%= paths.app.resources %>/css/main.scss']
                 }
             }
         },

@@ -1,0 +1,98 @@
+@import "bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+input, select {
+    text-align: center;
+}
+
+.characterInfo {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.characterInfoContainer {
+    width: 98%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.characterInfoElement {
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 5px;
+    vertical-align: top;
+}
+
+.characterClassBlock span {
+    float: left;
+}
+
+.characterInfoElement label,
+.coreStatBlock label {
+    display: block;
+    text-align: center;
+}
+
+.characterInfo input,
+.characterInfo select {
+    @extend .form-control;
+}
+
+#characterExp {
+    width: 120px;
+}
+
+.characterStatBlocks {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+}
+
+table.characterStatBlock > tbody > tr > td,
+table.characterWeapons > tbody > tr > td {
+    padding: 3px;
+}
+
+.characterStatBlock {
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.characterStatBlock input {
+    @extend .form-control;
+    width: auto;
+}
+
+.statBlockHeader {
+    text-align: center;
+}
+
+td.statLabel {
+    vertical-align: middle !important;
+}
+
+input.characterStat {
+    width: 60px;
+}
+
+label.classSkill {
+    color: green;
+}
+
+.addWeapon {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.addWeapon:hover {
+    text-decoration: underline;
+}

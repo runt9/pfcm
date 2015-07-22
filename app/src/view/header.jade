@@ -15,4 +15,6 @@ html(ng-app="PFCM")
             script(src="js/libs.min.js")
             script(src="js/pfcm.min.js")
     body(ng-controller="mainController")
+        .loadingIndicator(ng-show="loading")
+
         include navbar.jade

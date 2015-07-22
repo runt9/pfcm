@@ -2,8 +2,11 @@
     .navbar-header
         a.navbar-brand(href='#') Pathfinder Character Manager
     .navbar-collapse.collapse
-        ul.nav.navbar-nav
-            li.active: a(href='#') Home
+        ul.nav.navbar-nav(ng-show="user.authenticated")
+            li.active: a Stats and Skills
+            li: a.clickable Equipment and Abilities
+            li: a.clickable Spells
+            li: a.clickable Lore and Backstory
         ul.nav.navbar-nav.navbar-right
             li(ng-show="user.authenticated", ng-click="logout()"): a.clickable Logout
             li(ng-show="!user.authenticated", ng-click="login()"): a.clickable Login
