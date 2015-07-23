@@ -29,6 +29,9 @@ module.exports = function(grunt) {
             all: {
                 dest: '<%= paths.dist.js %>/libs.js',
                 cssDest: '<%= paths.dist.css %>/libs.css',
+                mainFiles: {
+                    'angular-new-router': 'dist/router.es5.js'
+                },
                 bowerOptions: {
                     relative: false
                 }

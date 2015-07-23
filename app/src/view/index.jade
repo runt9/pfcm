@@ -5,7 +5,19 @@ include header.jade
             a.clickable(ng-click="login()") login
         span &nbsp;to use Pathfinder Character Manager
 
-    .characterSheet(ng-show="user.authenticated")
-    include character_sheet.jade
+    .characterSheet(ng-show="user.authenticated", ng-viewport)
 
-include login_modal.jade
+script(type="text/ng-template" id="statsSkills.html")
+    include component/statsSkills.jade
+
+script(type="text/ng-template" id="equipmentAbilities.html")
+    include component/equipmentAbilities.jade
+
+script(type="text/ng-template" id="spells.html")
+    include component/spells.jade
+
+script(type="text/ng-template" id="loreBackstory.html")
+    include component/loreBackstory.jade
+
+script(type="text/ng-template" id="loginModal.html")
+    include loginModal.jade

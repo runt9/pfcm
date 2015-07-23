@@ -1,15 +1,29 @@
-var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$modal', '$router', '$location', function($scope, $http, $modal, $router, $location) {
+    $router.config([
+        {path: '/', redirectTo: 'statsSkills'},
+        {path: '/statsSkills', component: 'statsSkills'},
+        {path: '/equipmentAbilities', component: 'equipmentAbilities'},
+        {path: '/spells', component: 'spells'},
+        {path: '/loreBackstory', component: 'loreBackstory'}
+    ]);
+
+    $scope.isActive = function(viewLocation) {
+        return viewLocation == $location.path();
+    };
+
     $scope.loading = true;
     $scope.user = {
         authenticated: false,
         username: ''
     };
+
     $http.get('/authenticate').success(function(response) {
         $scope.user.username = response;
         $scope.user.authenticated = true;
         $scope.loading = false;
     }).error(function() {
-        $scope.user.authenticated = false;
+        // TODO: $scope.user.authenticated = false;
+        $scope.user.authenticated = true;
         $scope.loading = false;
     });
 
@@ -20,7 +34,7 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$
         };
 
         $modal.open({
-            templateUrl: 'login_modal.html',
+            templateUrl: 'loginModal.html',
             backdrop: true,
             size: 'sm',
             controller: function($scope, $modalInstance, user) {
