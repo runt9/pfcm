@@ -1,11 +1,13 @@
 include header.jade
 .container
-    h2.text-center(ng-show="!user.authenticated")
-        span You must&nbsp;
-            a.clickable(ng-click="login()") login
-        span &nbsp;to use Pathfinder Character Manager
+    h2.text-center(ng-show="!user.authenticated") You must #[a.clickable(ng-click="login()") login] to use Pathfinder Character Manager
 
-    .characterSheet(ng-show="user.authenticated", ng-viewport)
+    h2.text-center(ng-show="user.authenticated && !characterSelected") Welcome {{user.username}}! Please select one of your characters:
+        select.characterSelect.form-control(ng-model="characterSelect", ng-change="characterSelectChange()")
+            option
+            option Ren'Del Treeborne
+
+    .characterSheet(ng-show="user.authenticated && characterSelected", ng-viewport)
 
 script(type="text/ng-template" id="statsSkills.html")
     include component/statsSkills.jade

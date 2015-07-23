@@ -2,11 +2,12 @@
     .navbar-header
         a.navbar-brand(href='#') Pathfinder Character Manager
     .navbar-collapse.collapse
-        ul.nav.navbar-nav(ng-show="user.authenticated")
-            li(ng-class="{active: isActive('/statsSkills')}"): a(ng-link="statsSkills").clickable Stats and Skills
-            li(ng-class="{active: isActive('/equipmentAbilities')}"): a(ng-link="equipmentAbilities").clickable Equipment and Abilities
-            li(ng-class="{active: isActive('/spells')}"): a(ng-link="spells").clickable Spells
-            li(ng-class="{active: isActive('/loreBackstory')}"): a(ng-link="loreBackstory").clickable Lore and Backstory
+        ul.nav.navbar-nav(ng-show="user.authenticated && characterSelected")
+            li(ng-class="{active: isActive('/statsSkills')}"): a.clickable(ng-link="statsSkills") Stats and Skills
+            li(ng-class="{active: isActive('/equipmentAbilities')}"): a.clickable(ng-link="equipmentAbilities") Equipment and Abilities
+            li(ng-class="{active: isActive('/spells')}"): a.clickable(ng-link="spells") Spells
+            li(ng-class="{active: isActive('/loreBackstory')}"): a.clickable(ng-link="loreBackstory") Lore and Backstory
         ul.nav.navbar-nav.navbar-right
+            li(ng-show="characterSelected", ng-click="characterSelected = false"): a.clickable Select Different Character
             li(ng-show="user.authenticated", ng-click="logout()"): a.clickable Logout
             li(ng-show="!user.authenticated", ng-click="login()"): a.clickable Login

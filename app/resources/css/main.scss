@@ -1,5 +1,12 @@
 @import "characterSheet.scss";
 
+.characterSelect {
+    width: auto;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .clickable {
     cursor: pointer;
 }

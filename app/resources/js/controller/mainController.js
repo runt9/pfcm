@@ -1,32 +1,43 @@
 var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$modal', '$router', '$location', function($scope, $http, $modal, $router, $location) {
-    $router.config([
-        {path: '/', redirectTo: 'statsSkills'},
-        {path: '/statsSkills', component: 'statsSkills'},
-        {path: '/equipmentAbilities', component: 'equipmentAbilities'},
-        {path: '/spells', component: 'spells'},
-        {path: '/loreBackstory', component: 'loreBackstory'}
-    ]);
-
-    $scope.isActive = function(viewLocation) {
-        return viewLocation == $location.path();
-    };
-
+    // Variables we'll need throughout
+    $scope.characterSelected = false;
+    $scope.characterSelect = "";
     $scope.loading = true;
     $scope.user = {
         authenticated: false,
         username: ''
     };
 
+    // Router config
+    $router.config([
+        {path: '/statsSkills', component: 'statsSkills'},
+        {path: '/equipmentAbilities', component: 'equipmentAbilities'},
+        {path: '/spells', component: 'spells'},
+        {path: '/loreBackstory', component: 'loreBackstory'}
+    ]);
+
+    // Actions to perform at the beginning of controller instantiation
     $http.get('/authenticate').success(function(response) {
         $scope.user.username = response;
         $scope.user.authenticated = true;
         $scope.loading = false;
     }).error(function() {
-        // TODO: $scope.user.authenticated = false;
-        $scope.user.authenticated = true;
+        $scope.user.authenticated = false;
         $scope.loading = false;
     });
 
+    // Helper functions
+    $scope.isActive = function(viewLocation) {
+        return viewLocation == $location.path();
+    };
+
+    $scope.characterSelectChange = function() {
+        if ($scope.characterSelect != "") {
+            $scope.characterSelected = true;
+        }
+    };
+
+    // Auth handling
     $scope.login = function() {
         $scope.user = {
             username: '',
@@ -70,6 +81,7 @@ var mainController = pfcmApp.controller('mainController', ['$scope', '$http', '$
     };
 
     $scope.logout = function() {
+        $scope.characterSelected = false;
         $scope.user.authenticated = false;
         $scope.loading = true;
         $http.get('/logout').then(function() {
