@@ -4,10 +4,25 @@ input, select {
     text-align: center;
 }
 
-.characterInfo {
+.infoBlockContainer {
     border: 1px solid black;
     border-radius: 15px;
-    padding: 10px;
+    padding: 5px;
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    vertical-align: top;
+}
+
+.flexBoxContainer {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.characterInfo {
+    @extend .infoBlockContainer;
     text-align: center;
     width: 100%;
 }
@@ -45,11 +60,8 @@ input, select {
 }
 
 .characterStatBlocks {
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @extend .flexBoxContainer;
     margin-top: 20px;
-    width: 100%;
 }
 
 table.characterStatBlock > tbody > tr > td,
@@ -57,17 +69,7 @@ table.characterWeapons > tbody > tr > td {
     padding: 3px;
 }
 
-.characterStatBlock {
-    display: inline-block;
-    width: auto;
-    height: 100%;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 5px;
-    vertical-align: top;
-}
-
-.characterStatBlock input {
+.infoBlockContainer input {
     @extend .form-control;
     width: auto;
 }
@@ -80,19 +82,40 @@ td.statLabel {
     vertical-align: middle !important;
 }
 
-input.characterStat {
+input.smallNumber {
     width: 60px;
+}
+
+input.largeNumber {
+    width: 90px;
 }
 
 label.classSkill {
     color: green;
 }
 
-.addWeapon {
+.addRow {
     cursor: pointer;
     font-weight: bold;
 }
 
-.addWeapon:hover {
+.deleteRow {
+    @extend .addRow;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.addRow:hover {
     text-decoration: underline;
+    color: green;
+}
+
+.deleteRow:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.itemName {
+    @extend .form-control;
 }

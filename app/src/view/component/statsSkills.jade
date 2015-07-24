@@ -46,7 +46,7 @@
                 span: select#characterClass1
                     option Barbarian
                     option Druid
-                span: input#characterClass1Level.characterStat(type="number", value="1", size="2")
+                span: input#characterClass1Level.smallNumber(type="number", value="1", size="2")
 
         .characterInfoElement
             label(for="characterClass2") Class 2
@@ -54,10 +54,10 @@
                 span: select#characterClass2
                     option Barbarian
                     option Druid
-                span: input#characterClass2Level.characterStat(type="number", value="4", size="2")
+                span: input#characterClass2Level.smallNumber(type="number", value="4", size="2")
 
 .characterStatBlocks
-    table.table.table-responsive.characterStatBlock.characterAbilityScores
+    table.table.table-responsive.infoBlockContainer.characterAbilityScores
         thead
             tr
                 th.statBlockHeader Ability
@@ -67,83 +67,83 @@
         tbody
             tr
                 td.statLabel: label(for="characterStr") STR
-                td: input#characterStr.characterStat(type="number", value="16")
-                td: input#characterStrTemp.characterStat(type="number", value="0")
+                td: input#characterStr.smallNumber(type="number", value="16")
+                td: input#characterStrTemp.smallNumber(type="number", value="0")
                 td: input#characterStrMod(type="text", disabled, value="+3", size="1")
             tr
                 td.statLabel: label(for="characterDex") DEX
-                td: input#characterDex.characterStat(type="number", value="14")
-                td: input#characterDexTemp.characterStat(type="number", value="0")
+                td: input#characterDex.smallNumber(type="number", value="14")
+                td: input#characterDexTemp.smallNumber(type="number", value="0")
                 td: input#characterDexMod(type="text", disabled, value="+2", size="1")
             tr
                 td.statLabel: label(for="characterCon") CON
-                td: input#characterCon.characterStat(type="number", value="10")
-                td: input#characterConTemp.characterStat(type="number", value="0")
+                td: input#characterCon.smallNumber(type="number", value="10")
+                td: input#characterConTemp.smallNumber(type="number", value="0")
                 td: input#characterConMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterInt") INT
-                td: input#characterInt.characterStat(type="number", value="10")
-                td: input#characterIntTemp.characterStat(type="number", value="0")
+                td: input#characterInt.smallNumber(type="number", value="10")
+                td: input#characterIntTemp.smallNumber(type="number", value="0")
                 td: input#characterIntMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterWis") WIS
-                td: input#characterWis.characterStat(type="number", value="17")
-                td: input#characterWisTemp.characterStat(type="number", value="0")
+                td: input#characterWis.smallNumber(type="number", value="17")
+                td: input#characterWisTemp.smallNumber(type="number", value="0")
                 td: input#characterWisMod(type="text", disabled, value="+3", size="1")
             tr
                 td.statLabel: label(for="characterCha") CHA
-                td: input#characterCha.characterStat(type="number", value="10")
-                td: input#characterChaTemp.characterStat(type="number", value="0")
+                td: input#characterCha.smallNumber(type="number", value="10")
+                td: input#characterChaTemp.smallNumber(type="number", value="0")
                 td: input#characterChaMod(type="text", disabled, value="0", size="1")
 
-    table.table.table-responsive.characterStatBlock.characterCoreStats
+    table.table.table-responsive.infoBlockContainer.characterCoreStats
         thead
             tr: th.statBlockHeader(colspan=4) Core Stats
         tbody
             tr
                 td.statLabel: label Speed
-                td: input#characterSpeed.characterStat(type="number", value="40", disabled)
+                td: input#characterSpeed.smallNumber(type="number", value="40", disabled)
             tr
                 td.statLabel: label Initiative
-                td: input#characterInitiative.characterStat(type="number", value="8", disabled)
+                td: input#characterInitiative.smallNumber(type="number", value="8", disabled)
             tr
                 td.statLabel: label Hit Points
                 td: .coreStatBlock
                     label(for="characterMaxHp") Max
-                    input#characterMaxHp.characterStat(type="number", value="40")
+                    input#characterMaxHp.smallNumber(type="number", value="40")
                 td: .coreStatBlock
                     label(for="characterCurHp") Cur
-                    input#characterCurHp.characterStat(type="number", value="40")
+                    input#characterCurHp.smallNumber(type="number", value="40")
             tr
                 td.statLabel: label Combat Maneuvers
                 td: .coreStatBlock
                     label(for="characterCmb") CMB
-                    input#characterMaxHp.characterStat(type="number", value="7", disabled)
+                    input#characterMaxHp.smallNumber(type="number", value="7", disabled)
                 td: .coreStatBlock
                     label(for="characterCmd") CMD
-                    input#characterCurHp.characterStat(type="number", value="19", disabled)
+                    input#characterCurHp.smallNumber(type="number", value="19", disabled)
             tr
                 td.statLabel: label Armor Class
                 td: .coreStatBlock
                     label(for="characterAc") Normal
-                    input#characterAc.characterStat(type="number", value="14", disabled)
+                    input#characterAc.smallNumber(type="number", value="14", disabled)
                 td: .coreStatBlock
                     label(for="characterTouchAc") Touch
-                    input#characterTouchAc.characterStat(type="number", value="12", disabled)
+                    input#characterTouchAc.smallNumber(type="number", value="12", disabled)
                 td: .coreStatBlock
                     label(for="characterFfAc") Flat
-                    input#characterTouchFfAc.characterStat(type="number", value="12", disabled)
+                    input#characterTouchFfAc.smallNumber(type="number", value="12", disabled)
             tr
                 td.statLabel: label Saves
                 td: .coreStatBlock
                     label(for="characterFortSave") Fort
-                    input#characterAc.characterStat(type="number", value="6", disabled)
+                    input#characterAc.smallNumber(type="number", value="6", disabled)
                 td: .coreStatBlock
                     label(for="characterReflexSave") Reflex
-                    input#characterTouchAc.characterStat(type="number", value="3", disabled)
+                    input#characterTouchAc.smallNumber(type="number", value="3", disabled)
                 td: .coreStatBlock
                     label(for="characterWillSave") Will
-                    input#characterTouchFfAc.characterStat(type="number", value="7", disabled)
+                    input#characterTouchFfAc.smallNumber(type="number", value="7", disabled)
             tr
                 td.statLabel: label Base Attack Bonus
                 td(colspan=3): .coreStatBlock
@@ -166,10 +166,10 @@
                             td: input.weaponRange(type="text", value="5", disabled, size="2")
                             td: input.weaponDamage(type="text", value="1d10 + 4", disabled, size="7")
                         tr
-                            td.addWeapon.clickable + Add Weapon
+                            td.addRow(colspan="5") + Add Weapon
 
 
-    table.table.table-responsive.characterStatBlock.characterSkills
+    table.table.table-responsive.infoBlockContainer.characterSkills
         thead
             tr
                 th.statBlockHeader Skill
@@ -178,141 +178,141 @@
         tbody
             tr
                 td.statLabel: label.classSkill(for="characterAcrobatics") Acrobatics
-                td: input#characterAcrobatics.characterStat(type="number", value="1")
+                td: input#characterAcrobatics.smallNumber(type="number", value="1")
                 td: input#characterAcrobaticsMod(type="text", disabled, value="+6", size="1")
             tr
                 td.statLabel: label(for="characterAppraise") Appraise
-                td: input#characterAppraise.characterStat(type="number", value="0")
+                td: input#characterAppraise.smallNumber(type="number", value="0")
                 td: input#characterAppraiseMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterBluff") Bluff
-                td: input#characterBluff.characterStat(type="number", value="1")
+                td: input#characterBluff.smallNumber(type="number", value="1")
                 td: input#characterBluffMod(type="text", disabled, value="+1", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterClimb") Climb
-                td: input#characterClimb.characterStat(type="number", value="1")
+                td: input#characterClimb.smallNumber(type="number", value="1")
                 td: input#characterClimbMod(type="text", disabled, value="+7", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterCraft") Craft
-                td: input#characterCraft.characterStat(type="number", value="0")
+                td: input#characterCraft.smallNumber(type="number", value="0")
                 td: input#characterCraftMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterDiplomacy") Diplomacy
-                td: input#characterDiplomacy.characterStat(type="number", value="0")
+                td: input#characterDiplomacy.smallNumber(type="number", value="0")
                 td: input#characterDiplomacyMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterDisableDevice") Disable Device
-                td: input#characterDisableDevice.characterStat(type="number", value="0")
+                td: input#characterDisableDevice.smallNumber(type="number", value="0")
                 td: input#characterDisableDeviceMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterDisguise") Disguise
-                td: input#characterDisguise.characterStat(type="number", value="1")
+                td: input#characterDisguise.smallNumber(type="number", value="1")
                 td: input#characterDisguiseMod(type="text", disabled, value="+6", size="1")
             tr
                 td.statLabel: label(for="characterEscapeArtist") Escape Artist
-                td: input#characterEscapeArtist.characterStat(type="number", value="0")
+                td: input#characterEscapeArtist.smallNumber(type="number", value="0")
                 td: input#characterEscapeArtistMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterFly") Fly
-                td: input#characterFly.characterStat(type="number", value="0")
+                td: input#characterFly.smallNumber(type="number", value="0")
                 td: input#characterFlyMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterHandleAnimal") Handle Animal
-                td: input#characterHandleAnimal.characterStat(type="number", value="0")
+                td: input#characterHandleAnimal.smallNumber(type="number", value="0")
                 td: input#characterHandleAnimalMod(type="text", disabled, value="+2", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterHeal") Heal
-                td: input#characterHeal.characterStat(type="number", value="0")
+                td: input#characterHeal.smallNumber(type="number", value="0")
                 td: input#characterHealMod(type="text", disabled, value="+2", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterIntimidate") Intimidate
-                td: input#characterIntimidate.characterStat(type="number", value="1")
+                td: input#characterIntimidate.smallNumber(type="number", value="1")
                 td: input#characterIntimidateMod(type="text", disabled, value="+4", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterKnArcana") Kn Arcana
-                td: input#characterKnArcana.characterStat(type="number", value="1")
+                td: input#characterKnArcana.smallNumber(type="number", value="1")
                 td: input#characterKnArcanaMod(type="text", disabled, value="+7", size="1")
             tr
                 td.statLabel: label(for="characterKnDungeoneering") Kn Dungeoneering
-                td: input#characterKnDungeoneering.characterStat(type="number", value="1")
+                td: input#characterKnDungeoneering.smallNumber(type="number", value="1")
                 td: input#characterKnDungeoneeringMod(type="text", disabled, value="+7", size="1")
             tr
                 td.statLabel: label(for="characterKnEngineering") Kn Engineering
-                td: input#characterKnEngineering.characterStat(type="number", value="1")
+                td: input#characterKnEngineering.smallNumber(type="number", value="1")
                 td: input#characterKnEngineeringMod(type="text", disabled, value="+4", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterKnGeography") Kn Geography
-                td: input#characterKnGeography.characterStat(type="number", value="0")
+                td: input#characterKnGeography.smallNumber(type="number", value="0")
                 td: input#characterKnGeographyMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterKnHistory") Kn History
-                td: input#characterKnHistory.characterStat(type="number", value="0")
+                td: input#characterKnHistory.smallNumber(type="number", value="0")
                 td: input#characterKnHistoryMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterKnLocal") Kn Local
-                td: input#characterKnLocal.characterStat(type="number", value="1")
+                td: input#characterKnLocal.smallNumber(type="number", value="1")
                 td: input#characterKnLocalMod(type="text", disabled, value="+4", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterKnNature") Kn Nature
-                td: input#characterKnNature.characterStat(type="number", value="0")
+                td: input#characterKnNature.smallNumber(type="number", value="0")
                 td: input#characterKnNatureMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterKnNobility") Kn Nobility
-                td: input#characterKnNobility.characterStat(type="number", value="1")
+                td: input#characterKnNobility.smallNumber(type="number", value="1")
                 td: input#characterKnNobilityMod(type="text", disabled, value="+4", size="1")
             tr
                 td.statLabel: label(for="characterKnPlanes") Kn Planes
-                td: input#characterKnPlanes.characterStat(type="number", value="2")
+                td: input#characterKnPlanes.smallNumber(type="number", value="2")
                 td: input#characterKnPlanesMod(type="text", disabled, value="+7", size="1")
             tr
                 td.statLabel: label(for="characterKnReligion") Kn Religion
-                td: input#characterKnReligion.characterStat(type="number", value="0")
+                td: input#characterKnReligion.smallNumber(type="number", value="0")
                 td: input#characterKnReligionMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterLinguistics") Linguistics
-                td: input#characterLinguistics.characterStat(type="number", value="0")
+                td: input#characterLinguistics.smallNumber(type="number", value="0")
                 td: input#characterLinguisticsMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterPerception") Perception
-                td: input#characterPerception.characterStat(type="number", value="0")
+                td: input#characterPerception.smallNumber(type="number", value="0")
                 td: input#characterPerceptionMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterPerform") Perform
-                td: input#characterPerform.characterStat(type="number", value="0")
+                td: input#characterPerform.smallNumber(type="number", value="0")
                 td: input#characterPerformMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterProfession") Profession
-                td: input#characterProfession.characterStat(type="number", value="3")
+                td: input#characterProfession.smallNumber(type="number", value="3")
                 td: input#characterProfessionMod(type="text", disabled, value="+14", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterRide") Ride
-                td: input#characterRide.characterStat(type="number", value="0")
+                td: input#characterRide.smallNumber(type="number", value="0")
                 td: input#characterRideMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterSenseMotive") Sense Motive
-                td: input#characterSenseMotive.characterStat(type="number", value="0")
+                td: input#characterSenseMotive.smallNumber(type="number", value="0")
                 td: input#characterSenseMotiveMod(type="text", disabled, value="0", size="1")
             tr
                 td.statLabel: label(for="characterSleightofHand") Sleight of Hand
-                td: input#characterSleightofHand.characterStat(type="number", value="1")
+                td: input#characterSleightofHand.smallNumber(type="number", value="1")
                 td: input#characterSleightofHandMod(type="text", disabled, value="+7", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterSpellcraft") Spellcraft
-                td: input#characterSpellcraft.characterStat(type="number", value="0")
+                td: input#characterSpellcraft.smallNumber(type="number", value="0")
                 td: input#characterSpellcraftMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterStealth") Stealth
-                td: input#characterStealth.characterStat(type="number", value="0")
+                td: input#characterStealth.smallNumber(type="number", value="0")
                 td: input#characterStealthMod(type="text", disabled, value="+2", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterSurvival") Survival
-                td: input#characterSurvival.characterStat(type="number", value="0")
+                td: input#characterSurvival.smallNumber(type="number", value="0")
                 td: input#characterSurvivalMod(type="text", disabled, value="+3", size="1")
             tr
                 td.statLabel: label.classSkill(for="characterSwim") Swim
-                td: input#characterSwim.characterStat(type="number", value="0")
+                td: input#characterSwim.smallNumber(type="number", value="0")
                 td: input#characterSwimMod(type="text", disabled, value="-", size="1")
             tr
                 td.statLabel: label(for="characterUseMagicDevice") Use Magic Device
-                td: input#characterUseMagicDevice.characterStat(type="number", value="1")
+                td: input#characterUseMagicDevice.smallNumber(type="number", value="1")
                 td: input#characterUseMagicDeviceMod(type="text", disabled, value="+4", size="1")

@@ -1,1 +1,62 @@
-.equipmentAbilities Equipment and abilities go here
+.equipmentAbilities.flexBoxContainer
+    table.table.table-responsive.infoBlockContainer
+        thead
+            tr
+                th.text-center(colspan="3") Equipment
+            tr
+                th Qty
+                th Item
+                th Del
+        tbody
+            tr
+                td: input.largeNumber(type="number", value="1")
+                td: input.itemName(type="text", value="Rope (50ft)", disabled)
+                td.deleteRow X
+            tr
+                td: input.largeNumber(type="number", value="500")
+                td: input.itemName(type="text", value="Gold", disabled)
+                td.deleteRow X
+            tr
+                td: input.largeNumber(type="number", value="1")
+                td: input.itemName(type="text", value="Leather Armor", disabled)
+                td.deleteRow X
+            tr
+                td.addRow(colspan="3") + Add Item
+
+    table.infoBlockContainer
+        tbody
+            tr: td
+                table.table.table-responsive
+                    thead
+                        tr
+                            th.text-center(colspan="3") Feats
+                        tr
+                            th.text-center Feat
+                            th.text-center Detail
+                            th.text-center Del
+                    tbody
+                        tr
+                            td: input.abilityName(type="text", value="Skill Focus", disabled)
+                            td: input.abilityDetail(type="text", value="Perception", disabled)
+                            td.deleteRow X
+                        tr
+                            td: input.abilityName(type="text", value="Improved Initiative", disabled)
+                            td: input.abilityDetail(type="text", value="", disabled)
+                            td.deleteRow X
+                        tr
+                            td.addRow(colspan="3") + Add Feat
+            tr: td
+                table.table.table-responsive
+                    thead
+                        tr
+                            th.text-center(colspan="2") Abilities
+                        tr
+                            th.text-center Ability
+                            th.text-center Detail
+                    tbody
+                        tr
+                            td: input.abilityName(type="text", value="Low-Light Vision", disabled)
+                            td: input.abilityDetail(type="text", value="", disabled)
+                        tr
+                            td: input.abilityName(type="text", value="Rage", disabled)
+                            td: input.abilityDetail(type="text", value="4 Rounds", disabled)
