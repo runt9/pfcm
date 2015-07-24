@@ -60,10 +60,10 @@
     table.table.table-responsive.infoBlockContainer.characterAbilityScores
         thead
             tr
-                th.statBlockHeader Ability
-                th.statBlockHeader Score
-                th.statBlockHeader Temp
-                th.statBlockHeader Mod
+                th Ability
+                th Score
+                th Temp
+                th Mod
         tbody
             tr
                 td.statLabel: label(for="characterStr") STR
@@ -98,7 +98,7 @@
 
     table.table.table-responsive.infoBlockContainer.characterCoreStats
         thead
-            tr: th.statBlockHeader(colspan=4) Core Stats
+            tr: th(colspan=4) Core Stats
         tbody
             tr
                 td.statLabel: label Speed
@@ -153,11 +153,11 @@
                 td(colspan="4"): table.table.table-responsive.characterWeapons
                     thead
                         tr
-                            th.statBlockHeader Weapon
-                            th.statBlockHeader ATK
-                            th.statBlockHeader Crit
-                            th.statBlockHeader Range
-                            th.statBlockHeader Damage
+                            th Weapon
+                            th ATK
+                            th Crit
+                            th Range
+                            th Damage
                     tbody
                         tr
                             td.statLabel: label Greatclub
@@ -172,9 +172,9 @@
     table.table.table-responsive.infoBlockContainer.characterSkills
         thead
             tr
-                th.statBlockHeader Skill
-                th.statBlockHeader Ranks
-                th.statBlockHeader Mod
+                th Skill
+                th Ranks
+                th Mod
         tbody
             tr
                 td.statLabel: label.classSkill(for="characterAcrobatics") Acrobatics

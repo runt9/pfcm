@@ -74,7 +74,7 @@ table.characterWeapons > tbody > tr > td {
     width: auto;
 }
 
-.statBlockHeader {
+.infoBlockContainer th {
     text-align: center;
 }
 
@@ -106,6 +106,10 @@ label.classSkill {
     vertical-align: middle;
 }
 
+.useSpell {
+    @extend .deleteRow;
+}
+
 .addRow:hover {
     text-decoration: underline;
     color: green;
@@ -116,6 +120,14 @@ label.classSkill {
     text-decoration: none;
 }
 
+.useSpell:hover {
+    color: orange;
+}
+
 .itemName {
     @extend .form-control;
+}
+
+.usedSpell {
+    background-color: gray;
 }
