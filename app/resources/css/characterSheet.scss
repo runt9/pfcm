@@ -55,10 +55,6 @@ input, select {
     @extend .form-control;
 }
 
-#characterExp {
-    width: 120px;
-}
-
 .characterStatBlocks {
     @extend .flexBoxContainer;
     margin-top: 20px;
@@ -88,6 +84,10 @@ input.smallNumber {
 
 input.largeNumber {
     width: 90px;
+}
+
+input.hugeNumber {
+    width: 120px;
 }
 
 label.classSkill {

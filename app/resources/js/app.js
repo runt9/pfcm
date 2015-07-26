@@ -1,6 +1,8 @@
 var pfcmApp = angular.module('PFCM', [
     'ui.bootstrap',
     'ngNewRouter',
+    'PFCM.controllers',
+    'PFCM.services',
     // Components
     'PFCM.statsSkills',
     'PFCM.equipmentAbilities',
@@ -13,3 +15,6 @@ pfcmApp.config(function($componentLoaderProvider) {
         return name + '.html';
     });
 });
+
+var pfcmControllers = angular.module('PFCM.controllers', []);
+var pfcmServices = angular.module('PFCM.services', []);
