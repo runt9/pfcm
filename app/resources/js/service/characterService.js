@@ -118,6 +118,14 @@ pfcmServices.factory('characterService', function() {
             } else {
                 return (classSkill ? 3 + skillRanks : skillRanks) + skillAbilityModifier;
             }
+        },
+
+        getCharacterAbilities: function() {
+            // TODO: Calculate from class/race/etc
+            return [
+                new Ability(1, 'Low-Light Vision', null, null),
+                new Ability(1, 'Rage', null, '4 Rounds')
+            ];
         }
     };
 });
