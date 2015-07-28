@@ -22,7 +22,7 @@
 
         .characterInfoElement
             label Experience
-            input.hugeNumber(type="number", ng-model="statsSkills.character.experience", maxlength="7")
+            input.largeNumber(type="number", ng-model="statsSkills.character.experience", maxlength="7")
 
         .characterInfoElement
             label Size
@@ -48,6 +48,19 @@
                 td: input.smallNumber(type="number", ng-model="statsSkills.character.abilities[ability].score")
                 td: input.smallNumber(type="number", ng-model="statsSkills.character.abilities[ability].temp")
                 td: input(type="text", disabled, ng-value="statsSkills.getAbilityModifier(ability)", size="1")
+            tr
+                td.characterSkills(colspan="4"): table.table.table-responsive
+                    thead
+                        tr
+                            th Skill
+                            th Ranks
+                            th Mod
+                    tbody
+                        tr(ng-repeat="skill in statsSkills.skills")
+                            td.statLabel {{camelSkill = statsSkills.camelCase(skill);""}}
+                                label(ng-class="{classSkill: statsSkills.isClassSkill(camelSkill)}") {{skill}}
+                            td: input.smallNumber(type="number", ng-model="statsSkills.character.skills[camelSkill]")
+                            td: input(type="text", disabled, ng-value="statsSkills.getSkillModifier(camelSkill)", size="2")
 
     table.table.table-responsive.infoBlockContainer.characterCoreStats
         thead
@@ -55,10 +68,10 @@
         tbody
             tr
                 td.statLabel: label Speed
-                td: input.smallNumber(type="number", value="40", disabled)
+                td: input(type="text", value="40", disabled, size="1")
             tr
                 td.statLabel: label Initiative
-                td: input.smallNumber(type="number", ng-value="statsSkills.getInitiative()", disabled)
+                td: input(type="text", ng-value="statsSkills.getInitiative()", disabled, size="1")
             tr
                 td.statLabel: label Hit Points
                 td: .coreStatBlock
@@ -71,37 +84,37 @@
                 td.statLabel: label Combat Maneuvers
                 td: .coreStatBlock
                     label CMB
-                    input.smallNumber(type="number", ng-value="statsSkills.getCombatManeuverBonus()", disabled)
+                    input(type="text", ng-value="statsSkills.getCombatManeuverBonus()", disabled, size="1")
                 td: .coreStatBlock
                     label CMD
-                    input.smallNumber(type="number", ng-value="statsSkills.getCombatManeuverDefense()", disabled)
+                    input(type="text", ng-value="statsSkills.getCombatManeuverDefense()", disabled, size="1")
             tr
                 td.statLabel: label Armor Class
                 td: .coreStatBlock
                     label Normal
-                    input.smallNumber(type="number", ng-value="statsSkills.getNormalArmorClass()", disabled)
+                    input(type="text", ng-value="statsSkills.getNormalArmorClass()", disabled, size="1")
                 td: .coreStatBlock
                     label Touch
-                    input.smallNumber(type="number", ng-value="statsSkills.getTouchArmorClass()", disabled)
+                    input(type="text", ng-value="statsSkills.getTouchArmorClass()", disabled, size="1")
                 td: .coreStatBlock
                     label Flat
-                    input.smallNumber(type="number", ng-value="statsSkills.getFlatFootedArmorClass()", disabled)
+                    input(type="text", ng-value="statsSkills.getFlatFootedArmorClass()", disabled, size="1")
             tr
                 td.statLabel: label Saves
                 td: .coreStatBlock
                     label Fort
-                    input.smallNumber(type="number", ng-value="statsSkills.getFortSave()", disabled)
+                    input(type="text", ng-value="statsSkills.getFortSave()", disabled, size="1")
                 td: .coreStatBlock
                     label Reflex
-                    input.smallNumber(type="number", ng-value="statsSkills.getReflexSave()", disabled)
+                    input(type="text", ng-value="statsSkills.getReflexSave()", disabled, size="1")
                 td: .coreStatBlock
                     label Will
-                    input.smallNumber(type="number", ng-value="statsSkills.getWillSave()", disabled)
+                    input(type="text", ng-value="statsSkills.getWillSave()", disabled, size="1")
             tr
                 td.statLabel: label Base Attack Bonus
-                td(colspan=3): input.smallNumber(type="number", ng-value="statsSkills.getBaseAttackBonus()", disabled)
+                td: input(type="text", ng-value="statsSkills.getBaseAttackBonus()", disabled, size="1")
             tr
-                td(colspan="4"): table.table.table-responsive.characterWeapons
+                td(colspan="5").characterWeapons: table.table.table-responsive
                     thead
                         tr
                             th Weapon
@@ -110,25 +123,12 @@
                             th Range
                             th Damage
                     tbody
-                        tr(ng-repeat="weapon in statsSkills.character.weapons")
-                            td.statLabel: label Greatclub
-                            td: input.smallNumber(type="number", ng-value="statsSkills.getWeaponAttackBonus(weapon)", disabled)
-                            td: input(type="text", ng-value="weapon.crit", disabled, size="5")
-                            td: input(type="text", ng-value="weapon.range", disabled, size="2")
-                            td: input(type="text", ng-value="statsSkills.getWeaponDamageString(weapon)", disabled, size="7")
+                        tr(ng-repeat="(index, weapon) in statsSkills.character.weapons")
+                            td.statLabel: label {{weapon.name}}
+                            td.weaponFieldContainer: span.weaponField {{statsSkills.getWeaponAttackBonus(weapon)}}
+                            td.weaponFieldContainer: span.weaponField {{weapon.crit}}
+                            td.weaponFieldContainer: span.weaponField {{weapon.range}}
+                            td.weaponFieldContainer: span.weaponField {{statsSkills.getWeaponDamageString(weapon)}}
+                            td.deleteRow(ng-click="statsSkills.deleteWeapon(index)") X
                         tr
                             td.addRow(colspan="5") + Add Weapon
-
-
-    table.table.table-responsive.infoBlockContainer.characterSkills
-        thead
-            tr
-                th Skill
-                th Ranks
-                th Mod
-        tbody
-            tr(ng-repeat="skill in statsSkills.skills")
-                td.statLabel {{camelSkill = statsSkills.camelCase(skill);""}}
-                    label(ng-class="{classSkill: statsSkills.isClassSkill(camelSkill)}") {{skill}}
-                td: input.smallNumber(type="number", ng-model="statsSkills.character.skills[camelSkill]")
-                td: input(type="text", disabled, ng-value="statsSkills.getSkillModifier(camelSkill)", size="2")

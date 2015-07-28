@@ -2,7 +2,7 @@ angular.module('PFCM.statsSkills', []).controller('StatsSkillsController', Stats
 
 function StatsSkillsController(characterService, weaponService) {
     this.character = characterService.character;
-    
+
     this.alignments = [
         'Lawful Good',
         'Neutral Good',
@@ -67,75 +67,57 @@ function StatsSkillsController(characterService, weaponService) {
         'Use Magic Device'
     ];
 
-    this.getAbilityScore = function(abilityName)  {
-        return characterService.getAbilityScore(abilityName);
-    };
+    this.getAbilityScore = characterService.getAbilityScore;
+    this.getTotalLevel = characterService.getTotalLevel;
+    this.getInitiative = characterService.getInitiative;
+    this.getCombatManeuverDefense = characterService.getCombatManeuverDefense;
+    this.getNormalArmorClass = characterService.getNormalArmorClass;
+    this.getTouchArmorClass = characterService.getTouchArmorClass;
+    this.getFlatFootedArmorClass = characterService.getFlatFootedArmorClass;
+    this.isClassSkill = characterService.isClassSkill;
+    this.getWeaponDamageString = weaponService.getDamageString;
 
-    this.getAbilityModifier = function(abilityName)  {
-        return characterService.getAbilityModifier(abilityName);
-    };
-
-    this.getTotalLevel = function()  {
-        return characterService.getTotalLevel();
-    };
-
-    this.getBaseAttackBonus = function()  {
-        return characterService.getBaseAttackBonus();
-    };
-
-    this.getInitiative = function()  {
-        return characterService.getInitiative();
-    };
-
-    this.getCombatManeuverBonus = function()  {
-        return characterService.getCombatManeuverBonus();
-    };
-
-    this.getCombatManeuverDefense = function()  {
-        return characterService.getCombatManeuverDefense();
-    };
-
-    this.getNormalArmorClass = function()  {
-        return characterService.getNormalArmorClass();
-    };
-
-    this.getTouchArmorClass = function()  {
-        return characterService.getTouchArmorClass();
-    };
-
-    this.getFlatFootedArmorClass = function() {
-        return characterService.getFlatFootedArmorClass();
-    };
-
-    this.getFortSave = function()  {
-        return characterService.getFortSave();
-    };
-
-    this.getReflexSave = function()  {
-        return characterService.getReflexSave();
-    };
-
-    this.getWillSave = function()  {
-        return characterService.getWillSave();
-    };
-
-    this.isClassSkill = function(skillName)  {
-        return characterService.isClassSkill(skillName);
-    };
-    
-    this.getSkillModifier = function(skillName) {
-        return characterService.getSkillModifier(skillName);
-    };
-
-    this.getWeaponAttackBonus = function() {
-        return weaponService.getAttackBonus();
-    };
-
-    this.getWeaponDamageString = function(weapon) {
-        return weaponService.getDamageString(weapon);
+    this.translateModifier = function(modifier) {
+        return modifier > 0 ? '+' + modifier : modifier;
     };
 
     this.camelCase = function(str) {
         return _.camelCase(str);
-    }
+    };
+
+    this.deleteWeapon = function(index) {
+        this.character.weapons.splice(index, 1);
+    };
+
+    this.getAbilityModifier = function(abilityName)  {
+        return this.translateModifier(characterService.getAbilityModifier(abilityName));
+    };
+
+    this.getBaseAttackBonus = function() {
+        return this.translateModifier(characterService.getBaseAttackBonus());
+    };
+
+    this.getCombatManeuverBonus = function() {
+        return this.translateModifier(characterService.getCombatManeuverBonus());
+    };
+
+    this.getFortSave = function() {
+        return this.translateModifier(characterService.getFortSave());
+    };
+
+    this.getReflexSave = function() {
+        return this.translateModifier(characterService.getReflexSave());
+    };
+
+    this.getWillSave = function() {
+        return this.translateModifier(characterService.getWillSave());
+    };
+    
+    this.getSkillModifier = function(skillName) {
+        return this.translateModifier(characterService.getSkillModifier(skillName));
+    };
+
+    this.getWeaponAttackBonus = function() {
+        return this.translateModifier(weaponService.getAttackBonus());
+    };
 }

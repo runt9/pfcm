@@ -8,10 +8,10 @@
                 th Item
                 th Del
         tbody
-            tr(ng-repeat="item in equipmentAbilities.character.equipment")
-                td: input.largeNumber(type="number", ng-model="item.qty")
+            tr(ng-repeat="(index, item) in equipmentAbilities.character.equipment")
+                td: input.mediumNumber(type="number", ng-model="item.qty")
                 td: input(type="text", ng-value="item.item.name", disabled)
-                td.deleteRow X
+                td.deleteRow(ng-click="equipmentAbilities.deleteItem(index)") X
             tr
                 td.addRow(colspan="3") + Add Item
 
@@ -27,10 +27,10 @@
                             th Detail
                             th Del
                     tbody
-                        tr(ng-repeat="feat in equipmentAbilities.character.feats")
+                        tr(ng-repeat="(index, feat) in equipmentAbilities.character.feats")
                             td: input(type="text", ng-value="feat.name", disabled)
                             td: input(type="text", ng-value="feat.detail", disabled)
-                            td.deleteRow X
+                            td.deleteRow(ng-click="equipmentAbilities.deleteFeat(index)") X
                         tr
                             td.addRow(colspan="3") + Add Feat
             tr: td

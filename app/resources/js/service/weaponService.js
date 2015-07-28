@@ -1,7 +1,8 @@
 pfcmServices.factory('weaponService', function(characterService) {
     return {
         getAttackBonus: function() {
-            return characterService.getBaseAttackBonus() + characterService.getAbilityModifier('strength');
+            //return characterService.getBaseAttackBonus() + characterService.getAbilityModifier('strength');
+            return '+20/+20/+20/+20';
         },
 
         getDamageString: function(weapon) {

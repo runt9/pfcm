@@ -1,7 +1,12 @@
 @import "bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
 
+$smallNumber: 45px;
+$mediumNumber: 90px;
+$largeNumber: 120px;
+
 input, select {
     text-align: center;
+    margin: 0 auto;
 }
 
 .infoBlockContainer {
@@ -79,15 +84,15 @@ td.statLabel {
 }
 
 input.smallNumber {
-    width: 60px;
+    width: $smallNumber;
+}
+
+input.mediumNumber {
+    width: $mediumNumber;
 }
 
 input.largeNumber {
-    width: 90px;
-}
-
-input.hugeNumber {
-    width: 120px;
+    width: $largeNumber;
 }
 
 label.classSkill {
@@ -130,4 +135,33 @@ label.classSkill {
 
 .usedSpell {
     background-color: gray;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.characterSkills {
+    padding: 20px 0 0 !important;
+}
+
+.characterWeapons {
+    @extend .characterSkills;
+}
+
+.weaponFieldContainer {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.weaponField {
+    width: auto;
+    cursor: not-allowed;
+    background-color: #eeeeee;
+    padding: 6px 12px;
+    color: #555555;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 }
