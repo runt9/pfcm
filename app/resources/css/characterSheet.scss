@@ -151,17 +151,35 @@ input[type=number]::-webkit-outer-spin-button {
     @extend .characterSkills;
 }
 
-.weaponFieldContainer {
+input.editableStat {
+    border: none;
+    border-bottom: 2px solid black;
+    border-radius: 10px;
+    box-shadow: none;
+    transition: border-radius ease-in-out 0.15s, border-color ease-in-out 0.15s;
+}
+
+input.editableStat:focus {
+    box-shadow: none;
+    border-color: #00ACDF;
+    border-radius: 15px;
+}
+
+.calculatedField {
     text-align: center;
     vertical-align: middle !important;
 }
 
-.weaponField {
-    width: auto;
-    cursor: not-allowed;
-    background-color: #eeeeee;
-    padding: 6px 12px;
-    color: #555555;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
+.modifier {
+    @extend .calculatedField;
+    font-weight: bold;
+}
+
+.equipmentAbilities .calculatedField,
+.spells .calculatedField {
+    padding: 8px 30px;
+}
+
+.coreStatBlock {
+    text-align: center;
 }

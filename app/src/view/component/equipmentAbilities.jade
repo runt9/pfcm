@@ -9,8 +9,8 @@
                 th Del
         tbody
             tr(ng-repeat="(index, item) in equipmentAbilities.character.equipment")
-                td: input.mediumNumber(type="number", ng-model="item.qty")
-                td: input(type="text", ng-value="item.item.name", disabled)
+                td: input.mediumNumber.editableStat(type="number", ng-model="item.qty")
+                td.calculatedField {{item.item.name}}
                 td.deleteRow(ng-click="equipmentAbilities.deleteItem(index)") X
             tr
                 td.addRow(colspan="3") + Add Item
@@ -28,8 +28,8 @@
                             th Del
                     tbody
                         tr(ng-repeat="(index, feat) in equipmentAbilities.character.feats")
-                            td: input(type="text", ng-value="feat.name", disabled)
-                            td: input(type="text", ng-value="feat.detail", disabled)
+                            td.calculatedField {{feat.name}}
+                            td.calculatedField {{feat.detail}}
                             td.deleteRow(ng-click="equipmentAbilities.deleteFeat(index)") X
                         tr
                             td.addRow(colspan="3") + Add Feat
@@ -43,5 +43,5 @@
                             th Detail
                     tbody
                         tr(ng-repeat="ability in equipmentAbilities.characterAbilities")
-                            td: input(type="text", ng-value="ability.name", disabled)
-                            td: input(type="text", ng-value="ability.detail", disabled)
+                            td.calculatedField {{ability.name}}
+                            td.calculatedField {{ability.detail}}

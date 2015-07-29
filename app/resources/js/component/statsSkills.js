@@ -67,16 +67,6 @@ function StatsSkillsController(characterService, weaponService) {
         'Use Magic Device'
     ];
 
-    this.getAbilityScore = characterService.getAbilityScore;
-    this.getTotalLevel = characterService.getTotalLevel;
-    this.getInitiative = characterService.getInitiative;
-    this.getCombatManeuverDefense = characterService.getCombatManeuverDefense;
-    this.getNormalArmorClass = characterService.getNormalArmorClass;
-    this.getTouchArmorClass = characterService.getTouchArmorClass;
-    this.getFlatFootedArmorClass = characterService.getFlatFootedArmorClass;
-    this.isClassSkill = characterService.isClassSkill;
-    this.getWeaponDamageString = weaponService.getDamageString;
-
     this.translateModifier = function(modifier) {
         return modifier > 0 ? '+' + modifier : modifier;
     };
@@ -117,7 +107,47 @@ function StatsSkillsController(characterService, weaponService) {
         return this.translateModifier(characterService.getSkillModifier(skillName));
     };
 
+    this.getInitiative = function()  {
+        return this.translateModifier(characterService.getInitiative());
+    };
+
     this.getWeaponAttackBonus = function() {
         return this.translateModifier(weaponService.getAttackBonus());
     };
+
+    this.getAbilityScore = function(abilityName)  {
+        return characterService.getAbilityScore(abilityName);
+    };
+
+    this.getTotalLevel = function()  {
+        return characterService.getTotalLevel();
+    };
+
+    this.getCombatManeuverDefense = function() {
+        return characterService.getCombatManeuverDefense();
+    };
+
+    this.getNormalArmorClass = function() {
+        return characterService.getNormalArmorClass(0);
+    };
+
+    this.getTouchArmorClass = function() {
+        return characterService.getTouchArmorClass();
+    };
+
+    this.getFlatFootedArmorClass = function() {
+        return characterService.getFlatFootedArmorClass();
+    };
+
+    this.isClassSkill = function(skillName) {
+        return characterService.isClassSkill(skillName);
+    };
+
+    this.getWeaponDamageString = function(weapon) {
+        return weaponService.getDamageString(weapon);
+    };
+
+    this.getSpeed = function() {
+        return characterService.getSpeed();
+    }
 }

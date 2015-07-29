@@ -80,6 +80,11 @@ pfcmServices.factory('characterService', function() {
         isClassSkill: function(skillName) {
             return (skillName.length > 4);
         },
+
+        getSpeed: function() {
+            // TODO: Calculate from race & class
+            return 40;
+        },
     
         getSkillAbilityModifier: function(skillName) {
             var skillAbilities = {
