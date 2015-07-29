@@ -131,6 +131,36 @@ pfcmServices.factory('characterService', function() {
                 new Ability(1, 'Low-Light Vision', null, null),
                 new Ability(1, 'Rage', null, '4 Rounds')
             ];
+        },
+
+        getSpells: function() {
+            // TODO: solidify the format and pull from class info and whatnot
+            return {
+                0: {
+                    slots: 3,
+                    spells: [
+                        new Spell(1, 'Light', false, null, '40 Minutes'),
+                        new Spell(2, 'Spark', true, null, null),
+                        new Spell(3, 'Create Water', false, null, null)
+                    ]
+                },
+
+                1: {
+                    slots: 5,
+                    spells: [
+                        new Spell(4, 'Hunter\'s Howl', false, null, '4 Rounds'),
+                        new Spell(5, 'Shillelagh', false, null, '4 Minutes'),
+                        new Spell(6, 'Cure Light Wounds', true, null, '1d6 + 4')
+                    ]
+                },
+
+                2: {
+                    slots: 4,
+                    spells: [
+                        new Spell(7, 'Bloodhound', false, null, '4 Rounds')
+                    ]
+                }
+            };
         }
     };
 });

@@ -1,78 +1,18 @@
 .spells.flexBoxContainer
-    table.table.table-responsive.infoBlockContainer
+    table.table.table-responsive.infoBlockContainer(ng-repeat="(level, spellLevelInfo) in spells.spells")
         thead
             tr
-                th(colspan="4") Level 0 Spells
+                th(colspan="4") Level {{level}} Spells
             tr
                 th Spell
-                th Dur/Dmg
+                th Detail
                 th Use
                 th Clear
         tbody
-            tr.usedSpell
-                td: input.spellName(type="text", value="Light", disabled)
-                td: input.spellDurDmg(type="text", value="40 Minutes", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td: input.spellName(type="text", value="Spark", disabled)
-                td: input.spellDurDmg(type="text", value="", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td: input.spellName(type="text", value="Create Water", disabled)
-                td: input.spellDurDmg(type="text", value="", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td.text-center.addRow(colspan="4") -- Select Spell --
-    table.table.table-responsive.infoBlockContainer
-        thead
-            tr
-                th(colspan="4") Level 1 Spells
-            tr
-                th Spell
-                th Dur/Dmg
-                th Use
-                th Clear
-        tbody
-            tr
-                td: input.spellName(type="text", value="Hunter's Howl", disabled)
-                td: input.spellDurDmg(type="text", value="4 Rounds", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr.usedSpell
-                td: input.spellName(type="text", value="Shillelagh", disabled)
-                td: input.spellDurDmg(type="text", value="4 Minutes", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td: input.spellName(type="text", value="Cure Light Wounds", disabled)
-                td: input.spellDurDmg(type="text", value="1d6 + 4", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td.text-center.addRow(colspan="4") -- Select Spell --
-            tr
-                td.text-center.addRow(colspan="4") -- Select Spell --
-    table.table.table-responsive.infoBlockContainer
-        thead
-            tr
-                th(colspan="4") Level 2 Spells
-            tr
-                th Spell
-                th Dur/Dmg
-                th Use
-                th Clear
-        tbody
-            tr
-                td: input.spellName(type="text", value="Bloodhound", disabled)
-                td: input.spellDurDmg(type="text", value="4 Rounds", disabled)
-                td.useSpell -
-                td.deleteRow X
-            tr
-                td.text-center.addRow(colspan="4") -- Select Spell --
-            tr
-                td.text-center.addRow(colspan="4") -- Select Spell --
-            tr
+            tr(ng-repeat="(index, spell) in spellLevelInfo.spells", ng-class="{usedSpell: spell.used}")
+                td.calculatedField {{spell.name}}
+                td.calculatedField {{spell.detail}}
+                td.useSpell(ng-click="spell.used = !spell.used") -
+                td.deleteRow(ng-click="spells.removeSpell(level, index)") X
+            tr(ng-show="spells.levelHasOpenSpellSlots(spellLevelInfo)")
                 td.text-center.addRow(colspan="4") -- Select Spell --

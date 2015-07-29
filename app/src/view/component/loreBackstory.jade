@@ -2,35 +2,35 @@
     .characterInfoContainer
         .characterInfoElement
             label(for="characterGender") Gender
-            input#characterGender(type="text", value="Male")
+            input#characterGender(type="text", ng-model="loreBackstory.character.gender")
 
         .characterInfoElement
             label(for="characterAge") Age
-            input#characterAge.mediumNumber(type="number", value="33")
+            input#characterAge.mediumNumber(type="number", ng-model="loreBackstory.character.age")
             
         .characterInfoElement
             label(for="characterHeight") Height
-            input#characterHeight(type="text", value="6'6\"")
+            input#characterHeight(type="text", ng-model="loreBackstory.character.height")
             
         .characterInfoElement
             label(for="characterWeight") Weight
-            input#characterWeight.mediumNumber(type="number", value="185")
+            input#characterWeight.mediumNumber(type="number", ng-model="loreBackstory.character.weight")
             
         .characterInfoElement
             label(for="characterHair") Hair
-            input#characterHair(type="text", value="Black")
+            input#characterHair(type="text", ng-model="loreBackstory.character.hair")
             
         .characterInfoElement
             label(for="characterEyes") Eyes
-            input#characterEyes(type="text", value="Green")
+            input#characterEyes(type="text", ng-model="loreBackstory.character.eyes")
             
         .characterInfoElement
             label(for="characterDeity") Deity
-            input#characterDeity(type="text", value="N/A")
+            input#characterDeity(type="text", ng-model="loreBackstory.character.deity")
             
         .characterInfoElement
             label(for="characterHomeland") Homeland
-            input#characterHomeland(type="text", value="Srolai Forest")
+            input#characterHomeland(type="text", ng-model="loreBackstory.character.homeland")
 
 .characterInfo
-    p There will be a WYSIWYG Markdown editor here!
+    p {{loreBackstory.character.backstory}}
