@@ -74,6 +74,9 @@
                 td: .coreStatBlock
                     label Cur
                     input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.currentHitPoints")
+                td: .coreStatBlock
+                    label Temp
+                    input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.tempHitPoints")
             tr
                 td.statLabel: label Basics
                 td: .coreStatBlock
@@ -93,6 +96,7 @@
                 td: .coreStatBlock
                     label CMD
                     span.calculatedField {{statsSkills.getCombatManeuverDefense()}}
+                td
             tr
                 td.statLabel: label Armor Class
                 td: .coreStatBlock
@@ -134,3 +138,15 @@
                             td.deleteRow(ng-click="statsSkills.deleteWeapon(index)") X
                         tr
                             td.addRow(colspan="5") + Add Weapon
+
+            tr
+                td(colspan="5").characterEffects: table.table.table-responsive
+                    thead
+                        tr
+                            th(colspan="5") Active Effects
+                    tbody
+                        tr(ng-repeat="(index, effect) in statsSkills.character.effects")
+                            td.statLabel: label {{effect.name}}
+                            td.deleteRow(ng-click="statsSkills.deleteEffect(index)") X
+                        tr
+                            td.addRow(colspan="5") + Add Effect

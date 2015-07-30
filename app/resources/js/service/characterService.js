@@ -8,6 +8,7 @@ pfcmServices.factory('characterService', function() {
             }
 
             this.character = character;
+            this.recalculateCalculatedEffects();
         },
 
         getAbilityScore: function(abilityName) {
@@ -17,7 +18,7 @@ pfcmServices.factory('characterService', function() {
                 return 0;
             }
     
-            return ability.score + ability.temp;
+            return ability.score + ability.temp + this.getCalculatedEffect(abilityName);
         },
     
         getAbilityModifier: function(abilityName) {
@@ -37,44 +38,45 @@ pfcmServices.factory('characterService', function() {
     
         // TODO: Get actual bonus from class
         getBaseAttackBonus: function() {
-            return 4;
+            return 4 + this.getCalculatedEffect('baseAttackBonus');
         },
     
         getInitiative: function() {
-            return this.getAbilityModifier('dexterity');
+            return this.getAbilityModifier('dexterity') + this.getCalculatedEffect('initiative');
         },
     
         getCombatManeuverBonus: function() {
-            return this.getBaseAttackBonus() + this.getAbilityModifier('strength');
+            return this.getBaseAttackBonus() + this.getAbilityModifier('strength') +
+                this.getCalculatedEffect('combatManeuverBonus');
         },
     
         getCombatManeuverDefense: function() {
             return 10 + this.getBaseAttackBonus() + this.getAbilityModifier('strength')
-                + this.getAbilityModifier('dexterity')
+                + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('combatManeuverDefense');
         },
     
         getNormalArmorClass: function() {
-            return 10 + this.getAbilityModifier('dexterity');
+            return 10 + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('normalArmorClass');
         },
     
         getTouchArmorClass: function() {
-            return 10 + this.getAbilityModifier('dexterity');
+            return 10 + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('touchArmorClass');
         },
     
         getFlatFootedArmorClass: function() {
-            return 10;
+            return 10 + this.getCalculatedEffect('flatFootedArmorClass');
         },
     
         getFortSave: function() {
-            return this.getAbilityModifier('constitution');
+            return this.getAbilityModifier('constitution') + this.getCalculatedEffect('fortSave');
         },
     
         getReflexSave: function() {
-            return this.getAbilityModifier('dexterity');
+            return this.getAbilityModifier('dexterity') + this.getCalculatedEffect('reflexSave');
         },
     
         getWillSave: function() {
-            return this.getAbilityModifier('wisdom');
+            return this.getAbilityModifier('wisdom') + this.getCalculatedEffect('willSave');
         },
     
         isClassSkill: function(skillName) {
@@ -83,7 +85,7 @@ pfcmServices.factory('characterService', function() {
 
         getSpeed: function() {
             // TODO: Calculate from race & class
-            return 40;
+            return 40 + this.getCalculatedEffect('speed');
         },
     
         getSkillAbilityModifier: function(skillName) {
@@ -117,11 +119,13 @@ pfcmServices.factory('characterService', function() {
             var requiresTraining = _.indexOf(skillsThatRequireTraining, skillName) > -1;
             var classSkill = this.isClassSkill(skillName);
             var skillAbilityModifier = this.getSkillAbilityModifier(skillName);
+            var bonusEffects = this.getCalculatedEffect(skillName);
     
             if (skillRanks == 0) {
-                return requiresTraining ? '-' : 0 + skillAbilityModifier;
+                return requiresTraining ? '-' : 0 + skillAbilityModifier + bonusEffects;
             } else {
-                return (classSkill ? 3 + skillRanks : skillRanks) + skillAbilityModifier;
+                var finalModifier = (classSkill ? 3 + skillRanks : skillRanks) + skillAbilityModifier;
+                return finalModifier + bonusEffects;
             }
         },
 
@@ -161,6 +165,35 @@ pfcmServices.factory('characterService', function() {
                     ]
                 }
             };
+        },
+
+        getCalculatedEffect: function(key) {
+            if (!_.has(this.character.calculatedEffects, key)) {
+                return 0;
+            }
+
+            var obj = this.character.calculatedEffects[key];
+            if (_.isEmpty(obj)) {
+                return 0;
+            }
+
+            return _.reduce(obj, function(total, n) {
+                return total + n;
+            });
+        },
+
+        recalculateCalculatedEffects: function() {
+            var self = this;
+            this.character.calculatedEffects = {};
+            _.forEach(this.character.effects, function(effect) {
+                _.forIn(effect.statEffects, function(value, key) {
+                    if (!_.has(self.character.calculatedEffects, key)) {
+                        self.character.calculatedEffects[key] = {};
+                    }
+
+                    self.character.calculatedEffects[key][effect.name] = value;
+                });
+            });
         }
     };
 });

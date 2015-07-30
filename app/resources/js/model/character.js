@@ -16,10 +16,15 @@ var Character = function(data) {
     this.abilities = data.abilities;
     this.maxHitPoints = data.maxHitPoints;
     this.currentHitPoints = data.currentHitPoints;
+    this.tempHitPoints = data.tempHitPoints;
     this.weapons = data.weapons;
     this.skills = data.skills;
     this.equipment = data.equipment;
     this.feats = data.feats;
     this.spells = data.spells;
     this.backstory = data.backstory;
+    this.effects = data.effects;
+
+    // Massive effects object used to track additional calculated effects across any stat
+    this.calculatedEffects = {};
 };
