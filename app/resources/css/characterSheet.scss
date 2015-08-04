@@ -183,3 +183,11 @@ input.editableStat:focus {
 .coreStatBlock {
     text-align: center;
 }
+
+.cancelAddRow {
+    vertical-align: middle !important;
+}
+
+.cancelAddRow:hover {
+    color: blue;
+}

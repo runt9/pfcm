@@ -3,6 +3,46 @@ angular.module('PFCM.statsSkills', []).controller('StatsSkillsController', Stats
 function StatsSkillsController(characterService, weaponService) {
     this.character = characterService.character;
 
+    //<editor-fold desc="Add Weapons/Effects">
+    this.addingWeapon = false;
+    this.weaponToAdd = "";
+    this.addingEffect = false;
+    this.effectToAdd = "";
+
+    this.allWeapons = function() {
+        return _.difference(weaponRepository.repository, this.character.weapons);
+    };
+
+    this.allEffects = function() {
+        return _.difference(effectRepository.repository, this.character.effects);
+    };
+
+    this.addWeapon = function(weapon) {
+        this.character.weapons.push(weapon);
+        this.addingWeapon = false;
+        this.weaponToAdd = "";
+        characterService.recalculateCalculatedEffects();
+    };
+
+    this.cancelAddingWeapon = function() {
+        this.addingWeapon = false;
+        this.weaponToAdd = "";
+    };
+
+    this.addEffect = function(effect) {
+        this.character.effects.push(effect);
+        this.addingEffect = false;
+        this.effectToAdd = "";
+        characterService.recalculateCalculatedEffects();
+    };
+
+    this.cancelAddingEffect = function() {
+        this.addingEffect = false;
+        this.effectToAdd = "";
+    };
+    //</editor-fold>
+
+    //<editor-fold desc="Hardcoded Data">
     this.alignments = [
         'Lawful Good',
         'Neutral Good',
@@ -66,7 +106,9 @@ function StatsSkillsController(characterService, weaponService) {
         'Swim',
         'Use Magic Device'
     ];
+    //</editor-fold>
 
+    //<editor-fold desc="Service Calls">
     this.translateModifier = function(modifier) {
         return modifier > 0 ? '+' + modifier : modifier;
     };
@@ -156,4 +198,5 @@ function StatsSkillsController(characterService, weaponService) {
     this.getSpeed = function() {
         return characterService.getSpeed();
     }
+    //</editor-fold>
 }

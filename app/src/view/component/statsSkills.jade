@@ -129,15 +129,20 @@
                             th Range
                             th Damage
                     tbody
-                        tr(ng-repeat="(index, weapon) in statsSkills.character.weapons")
+                        tr(ng-repeat="(index, weapon) in statsSkills.character.weapons | orderBy ")
                             td.statLabel: label {{weapon.name}}
                             td.calculatedField {{statsSkills.getWeaponAttackBonus(weapon)}}
                             td.calculatedField {{weapon.crit}}
                             td.calculatedField {{weapon.range}}
                             td.calculatedField {{statsSkills.getWeaponDamageString(weapon)}}
                             td.deleteRow(ng-click="statsSkills.deleteWeapon(index)") X
-                        tr
-                            td.addRow(colspan="5") + Add Weapon
+                        tr(ng-show="!statsSkills.addingWeapon")
+                            td.addRow(colspan="5", ng-click="statsSkills.addingWeapon = true") + Add Weapon
+                        tr(ng-show="statsSkills.addingWeapon")
+                            td(colspan="3")
+                                input.form-control(type="text", ng-model="statsSkills.weaponToAdd", typeahead-on-select="statsSkills.addWeapon($item)",
+                                typeahead="weapon.name for weapon in statsSkills.allWeapons() | filter: {name: $viewValue} | limitTo: 8")
+                            td.clickable.cancelAddRow(ng-click="statsSkills.cancelAddingWeapon()") Cancel
 
             tr
                 td(colspan="5").characterEffects: table.table.table-responsive
@@ -148,5 +153,11 @@
                         tr(ng-repeat="(index, effect) in statsSkills.character.effects")
                             td.statLabel: label {{effect.name}}
                             td.deleteRow(ng-click="statsSkills.deleteEffect(index)") X
-                        tr
-                            td.addRow(colspan="5") + Add Effect
+                        tr(ng-show="!statsSkills.addingEffect")
+                            td.addRow(colspan="5", ng-click="statsSkills.addingEffect = true") + Add Effect
+                        tr(ng-show="statsSkills.addingEffect")
+                            td
+                                input.form-control(type="text", ng-model="statsSkills.effectToAdd", typeahead-on-select="statsSkills.addEffect($item)",
+                                typeahead="effect.name for effect in statsSkills.allEffects() | filter: {name: $viewValue} | limitTo: 8")
+                            td.clickable.cancelAddRow(ng-click="statsSkills.cancelAddingEffect()") Cancel
+                                       

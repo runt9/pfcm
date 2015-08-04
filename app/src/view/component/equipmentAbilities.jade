@@ -31,9 +31,14 @@
                             td.calculatedField {{feat.name}}
                             td.calculatedField {{feat.detail}}
                             td.deleteRow(ng-click="equipmentAbilities.deleteFeat(index)") X
-                        tr
-                            td.addRow(colspan="3") + Add Feat
-            tr: td
+                        tr(ng-show="!equipmentAbilities.addingFeat")
+                            td.addRow(colspan="5", ng-click="equipmentAbilities.addingFeat = true") + Add Feat
+                        tr(ng-show="equipmentAbilities.addingFeat")
+                            td(colspan="2")
+                                input.form-control(type="text", ng-model="equipmentAbilities.featToAdd", typeahead-on-select="equipmentAbilities.addFeat($item)",
+                                typeahead="feat.name for feat in equipmentAbilities.allFeats() | filter: {name: $viewValue} | limitTo: 8")
+                            td.clickable.cancelAddRow(ng-click="equipmentAbilities.cancelAddingFeat()") Cancel
+        tr: td
                 table.table.table-responsive
                     thead
                         tr
