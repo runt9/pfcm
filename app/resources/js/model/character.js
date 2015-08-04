@@ -1,4 +1,4 @@
-var Character = function(data) {
+function Character(data) {
     this.playerName = data.playerName;
     this.characterName = data.characterName;
     this.alignment = data.alignment;
@@ -27,4 +27,4 @@ var Character = function(data) {
 
     // Massive effects object used to track additional calculated effects across any stat
     this.calculatedEffects = {};
-};
+}

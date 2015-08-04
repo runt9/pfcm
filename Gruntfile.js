@@ -42,9 +42,11 @@ module.exports = function(grunt) {
 
         concat: {
             dist: {
-                files: [
-                    {'<%= paths.dist.js %>/<%= pkg.name %>.js': ['<%= paths.app.resources %>/js/**/*.js']}
-                ]
+                src: [
+                    '<%= paths.app.resources %>/js/model/item.js', '<%= paths.app.resources %>/js/model/ability.js',
+                    '<%= paths.app.resources %>/js/repository/baseRepository.js', '<%= paths.app.resources %>/js/**/*.js'
+                ],
+                dest: '<%= paths.dist.js %>/<%= pkg.name %>.js'
             }
         },
 

@@ -77,10 +77,12 @@ function StatsSkillsController(characterService, weaponService) {
 
     this.deleteWeapon = function(index) {
         this.character.weapons.splice(index, 1);
+        characterService.recalculateCalculatedEffects();
     };
 
     this.deleteEffect = function(index) {
         this.character.effects.splice(index, 1);
+        characterService.recalculateCalculatedEffects();
     };
 
     this.getAbilityModifier = function(abilityName)  {

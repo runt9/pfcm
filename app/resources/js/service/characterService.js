@@ -7,8 +7,46 @@ pfcmServices.factory('characterService', function() {
                 return;
             }
 
-            this.character = character;
+            this.character = this.unpackCharacter(character);
             this.recalculateCalculatedEffects();
+        },
+
+        unpackCharacter: function(character) {
+            character.weapons = _.map(character.weapons, function(id) {
+                return weaponRepository.find(id);
+            });
+
+            character.feats = _.map(character.feats, function(id) {
+                return featRepository.find(id);
+            });
+
+            character.effects = _.map(character.effects, function(id) {
+                return effectRepository.find(id);
+            });
+
+            character.equipment = _.map(character.equipment, function(itemInfo) {
+                var repository;
+                switch (itemInfo.type) {
+                    case ItemType.ARMOR:
+                        repository = armorRepository;
+                        break;
+                    case ItemType.WEAPON:
+                        repository = weaponRepository;
+                        break;
+                    case ItemType.ITEM:
+                    default:
+                        repository = itemRepository;
+                        break;
+                }
+
+                return {
+                    qty: itemInfo.qty,
+                    type: itemInfo.type,
+                    item: repository.find(itemInfo.item)
+                };
+            });
+
+            return character;
         },
 
         getAbilityScore: function(abilityName) {
@@ -184,14 +222,27 @@ pfcmServices.factory('characterService', function() {
 
         recalculateCalculatedEffects: function() {
             var self = this;
-            this.character.calculatedEffects = {};
-            _.forEach(this.character.effects, function(effect) {
-                _.forIn(effect.statEffects, function(value, key) {
-                    if (!_.has(self.character.calculatedEffects, key)) {
-                        self.character.calculatedEffects[key] = {};
-                    }
+            var affectingArrays = [
+                this.character.abilities,
+                this.character.effects,
+                this.character.feats,
+                this.character.weapons,
 
-                    self.character.calculatedEffects[key][effect.name] = value;
+                _.map(this.character.equipment, function(itemInfo) {
+                    return itemInfo.item;
+                })
+            ];
+
+            this.character.calculatedEffects = {};
+            _.forEach(affectingArrays, function(arr) {
+                _.forEach(arr, function(obj) {
+                    _.forIn(obj.statEffects, function(value, key) {
+                        if (!_.has(self.character.calculatedEffects, key)) {
+                            self.character.calculatedEffects[key] = {};
+                        }
+
+                        self.character.calculatedEffects[key][obj.name] = value;
+                    });
                 });
             });
         }
