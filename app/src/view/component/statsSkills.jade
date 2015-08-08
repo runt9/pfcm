@@ -31,7 +31,7 @@
         .characterInfoElement(ng-repeat="classObj in statsSkills.character.classes")
             label Class
             .characterClassBlock
-                span: select(ng-model="classObj.name", ng-options="c for c in statsSkills.classes")
+                span: select(ng-model="classObj.classRef", ng-options="c as c.name for c in statsSkills.classes")
                 span: input.smallNumber(type="number", ng-model="classObj.level", size="2")
 
 .characterStatBlocks
@@ -43,11 +43,11 @@
                 th Temp
                 th Mod
         tbody
-            tr(ng-repeat="ability in statsSkills.abilities")
-                td.statLabel: label {{ability.substr(0, 3).toUpperCase()}}
-                td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.abilities[ability].score")
-                td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.abilities[ability].temp")
-                td.calculatedField.modifier {{statsSkills.getAbilityModifier(ability)}}
+            tr(ng-repeat="attribute in statsSkills.attributes")
+                td.statLabel: label {{attribute.shortName}}
+                td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.attributes[attribute.name].score")
+                td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.attributes[attribute.name].temp")
+                td.calculatedField.modifier {{statsSkills.getAttributeModifier(attribute)}}
             tr
                 td.characterSkills(colspan="4"): table.table.table-responsive
                     thead
@@ -57,10 +57,10 @@
                             th Mod
                     tbody
                         tr(ng-repeat="skill in statsSkills.skills")
-                            td.statLabel {{camelSkill = statsSkills.camelCase(skill);""}}
-                                label(ng-class="{classSkill: statsSkills.isClassSkill(camelSkill)}") {{skill}}
-                            td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.skills[camelSkill]")
-                            td.calculatedField.modifier {{statsSkills.getSkillModifier(camelSkill)}}
+                            td.statLabel
+                                label(ng-class="{classSkill: statsSkills.isClassSkill(skill)}") {{skill.name}}
+                            td: input.smallNumber.editableStat(type="number", ng-model="statsSkills.character.skills[skill.shortName]")
+                            td.calculatedField.modifier {{statsSkills.getSkillModifier(skill)}}
 
     table.table.table-responsive.infoBlockContainer.characterCoreStats
         thead

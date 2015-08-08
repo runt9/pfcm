@@ -29,6 +29,11 @@ function StatsSkillsController(characterService, weaponService) {
         this.weaponToAdd = "";
     };
 
+    this.deleteWeapon = function(index) {
+        this.character.weapons.splice(index, 1);
+        characterService.recalculateCalculatedEffects();
+    };
+
     this.addEffect = function(effect) {
         this.character.effects.push(effect);
         this.addingEffect = false;
@@ -39,6 +44,11 @@ function StatsSkillsController(characterService, weaponService) {
     this.cancelAddingEffect = function() {
         this.addingEffect = false;
         this.effectToAdd = "";
+    };
+
+    this.deleteEffect = function(index) {
+        this.character.effects.splice(index, 1);
+        characterService.recalculateCalculatedEffects();
     };
     //</editor-fold>
 
@@ -55,57 +65,15 @@ function StatsSkillsController(characterService, weaponService) {
         'Chaotic Evil'
     ];
 
-    this.abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-    
     this.races = [
         'Half-Elf',
         'Elf',
         'Human'
     ];
 
-    this.classes = [
-        'Barbarian',
-        'Druid',
-        'Fighter'
-    ];
-    
-    this.skills = [
-        'Acrobatics',
-        'Appraise',
-        'Bluff',
-        'Climb',
-        'Craft',
-        'Diplomacy',
-        'Disable Device',
-        'Disguise',
-        'Escape Artist',
-        'Fly',
-        'Handle Animal',
-        'Heal',
-        'Intimidate',
-        'Kn Arcana',
-        'Kn Dungeoneering',
-        'Kn Engineering',
-        'Kn Geography',
-        'Kn History',
-        'Kn Local',
-        'Kn Nature',
-        'Kn Nobility',
-        'Kn Planes',
-        'Kn Religion',
-        'Linguistics',
-        'Perception',
-        'Perform',
-        'Profession',
-        'Ride',
-        'Sense Motive',
-        'Sleight of Hand',
-        'Spellcraft',
-        'Stealth',
-        'Survival',
-        'Swim',
-        'Use Magic Device'
-    ];
+    this.classes = classRepository.repository;
+    this.attributes = Attribute;
+    this.skills = Skill;
     //</editor-fold>
 
     //<editor-fold desc="Service Calls">
@@ -117,18 +85,8 @@ function StatsSkillsController(characterService, weaponService) {
         return _.camelCase(str);
     };
 
-    this.deleteWeapon = function(index) {
-        this.character.weapons.splice(index, 1);
-        characterService.recalculateCalculatedEffects();
-    };
-
-    this.deleteEffect = function(index) {
-        this.character.effects.splice(index, 1);
-        characterService.recalculateCalculatedEffects();
-    };
-
-    this.getAbilityModifier = function(abilityName)  {
-        return this.translateModifier(characterService.getAbilityModifier(abilityName));
+    this.getAttributeModifier = function(attribute)  {
+        return this.translateModifier(characterService.getAttributeModifier(attribute));
     };
 
     this.getBaseAttackBonus = function() {
@@ -151,8 +109,8 @@ function StatsSkillsController(characterService, weaponService) {
         return this.translateModifier(characterService.getWillSave());
     };
     
-    this.getSkillModifier = function(skillName) {
-        return this.translateModifier(characterService.getSkillModifier(skillName));
+    this.getSkillModifier = function(skill) {
+        return this.translateModifier(characterService.getSkillModifier(skill));
     };
 
     this.getInitiative = function()  {
@@ -163,8 +121,8 @@ function StatsSkillsController(characterService, weaponService) {
         return this.translateModifier(weaponService.getAttackBonus());
     };
 
-    this.getAbilityScore = function(abilityName)  {
-        return characterService.getAbilityScore(abilityName);
+    this.getAttributeScore = function(attribute)  {
+        return characterService.getAttributeScore(attribute);
     };
 
     this.getTotalLevel = function()  {
@@ -187,8 +145,8 @@ function StatsSkillsController(characterService, weaponService) {
         return characterService.getFlatFootedArmorClass();
     };
 
-    this.isClassSkill = function(skillName) {
-        return characterService.isClassSkill(skillName);
+    this.isClassSkill = function(skill) {
+        return characterService.isClassSkill(skill);
     };
 
     this.getWeaponDamageString = function(weapon) {
@@ -197,6 +155,6 @@ function StatsSkillsController(characterService, weaponService) {
 
     this.getSpeed = function() {
         return characterService.getSpeed();
-    }
+    };
     //</editor-fold>
 }

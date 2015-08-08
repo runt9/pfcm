@@ -13,7 +13,7 @@ function Character(data) {
     this.deity = data.deity;
     this.homeland = data.homeland;
     this.classes = data.classes;
-    this.abilities = data.abilities;
+    this.attributes = data.attributes;
     this.maxHitPoints = data.maxHitPoints;
     this.currentHitPoints = data.currentHitPoints;
     this.tempHitPoints = data.tempHitPoints;

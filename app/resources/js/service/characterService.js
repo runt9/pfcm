@@ -46,21 +46,27 @@ pfcmServices.factory('characterService', function() {
                 };
             });
 
+            character.classes = _.map(character.classes, function(classInfo) {
+                classInfo['classRef'] = classRepository.find(classInfo.id);
+                return classInfo;
+            });
+
             return character;
         },
 
-        getAbilityScore: function(abilityName) {
-            var ability = _.get(this.character.abilities, abilityName);
-            if (ability === undefined) {
-                console.error('Attempted to get modifier for invalid ability: %s', abilityName);
+        getAttributeScore: function(attribute) {
+            var attributeName = attribute.name;
+            var charAttribute = _.get(this.character.attributes, attributeName);
+            if (charAttribute === undefined) {
+                console.error('Attempted to get modifier for invalid attribute: %s', attributeName);
                 return 0;
             }
     
-            return ability.score + ability.temp + this.getCalculatedEffect(abilityName);
+            return charAttribute.score + charAttribute.temp + this.getCalculatedEffect(attributeName);
         },
     
-        getAbilityModifier: function(abilityName) {
-            return Math.floor(((this.getAbilityScore(abilityName)) - 10) / 2);
+        getAttributeModifier: function(attribute) {
+            return Math.floor(((this.getAttributeScore(attribute)) - 10) / 2);
         },
     
         getTotalLevel: function() {
@@ -74,31 +80,35 @@ pfcmServices.factory('characterService', function() {
             }, 0);
         },
     
-        // TODO: Get actual bonus from class
         getBaseAttackBonus: function() {
-            return 4 + this.getCalculatedEffect('baseAttackBonus');
+            var classBab = 0;
+            _.forEach(this.character.classes, function(classObj) {
+                classBab += classObj.classRef.getBaseAttackBonus(classObj.level);
+            });
+
+            return classBab + this.getCalculatedEffect('baseAttackBonus');
         },
     
         getInitiative: function() {
-            return this.getAbilityModifier('dexterity') + this.getCalculatedEffect('initiative');
+            return this.getAttributeModifier(Attribute.DEXTERITY) + this.getCalculatedEffect('initiative');
         },
     
         getCombatManeuverBonus: function() {
-            return this.getBaseAttackBonus() + this.getAbilityModifier('strength') +
+            return this.getBaseAttackBonus() + this.getAttributeModifier(Attribute.STRENGTH) +
                 this.getCalculatedEffect('combatManeuverBonus');
         },
     
         getCombatManeuverDefense: function() {
-            return 10 + this.getBaseAttackBonus() + this.getAbilityModifier('strength')
-                + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('combatManeuverDefense');
+            return 10 + this.getBaseAttackBonus() + this.getAttributeModifier(Attribute.STRENGTH)
+                + this.getAttributeModifier(Attribute.DEXTERITY) + this.getCalculatedEffect('combatManeuverDefense');
         },
     
         getNormalArmorClass: function() {
-            return 10 + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('normalArmorClass');
+            return 10 + this.getAttributeModifier(Attribute.DEXTERITY) + this.getCalculatedEffect('normalArmorClass');
         },
     
         getTouchArmorClass: function() {
-            return 10 + this.getAbilityModifier('dexterity') + this.getCalculatedEffect('touchArmorClass');
+            return 10 + this.getAttributeModifier(Attribute.DEXTERITY) + this.getCalculatedEffect('touchArmorClass');
         },
     
         getFlatFootedArmorClass: function() {
@@ -106,19 +116,41 @@ pfcmServices.factory('characterService', function() {
         },
     
         getFortSave: function() {
-            return this.getAbilityModifier('constitution') + this.getCalculatedEffect('fortSave');
+            var classSave = 0;
+            _.forEach(this.character.classes, function(classObj) {
+                classSave += classObj.classRef.getSave(Class.SaveType.FORT_SAVE, classObj.level);
+            });
+
+            return classSave + this.getAttributeModifier(Attribute.CONSTITUTION) + this.getCalculatedEffect('fortSave');
         },
     
         getReflexSave: function() {
-            return this.getAbilityModifier('dexterity') + this.getCalculatedEffect('reflexSave');
+            var classSave = 0;
+            _.forEach(this.character.classes, function(classObj) {
+                classSave += classObj.classRef.getSave(Class.SaveType.REFLEX_SAVE, classObj.level);
+            });
+
+            return classSave + this.getAttributeModifier(Attribute.DEXTERITY) + this.getCalculatedEffect('reflexSave');
         },
     
         getWillSave: function() {
-            return this.getAbilityModifier('wisdom') + this.getCalculatedEffect('willSave');
+            var classSave = 0;
+            _.forEach(this.character.classes, function(classObj) {
+                classSave += classObj.classRef.getSave(Class.SaveType.WILL_SAVE, classObj.level);
+            });
+
+            return classSave + this.getAttributeModifier(Attribute.WISDOM) + this.getCalculatedEffect('willSave');
         },
     
-        isClassSkill: function(skillName) {
-            return (skillName.length > 4);
+        isClassSkill: function(skill) {
+            var retVal = false;
+            _.forEach(this.character.classes, function(classObj) {
+                if (_.contains(classObj.classRef.classSkills, skill)) {
+                    retVal = true;
+                }
+            });
+
+            return retVal;
         },
 
         getSpeed: function() {
@@ -126,37 +158,21 @@ pfcmServices.factory('characterService', function() {
             return 40 + this.getCalculatedEffect('speed');
         },
     
-        getSkillAbilityModifier: function(skillName) {
-            var skillAbilities = {
-                strength: ['climb', 'swim'],
-                dexterity: ['acrobatics', 'disableDevice', 'escapeArtist', 'fly', 'ride', 'sleightOfHand', 'stealth'],
-                intelligence: ['appraise', 'craft', 'knArcana', 'knDungeoneering', 'knEngineering', 'knGeography', 'knHistory',
-                    'knLocal', 'knNature', 'knNobility', 'knPlanes', 'knReligion', 'linguistics', 'spellcraft'],
-                wisdom: ['heal', 'perception', 'profession', 'senseMotive', 'survival'],
-                charisma: ['bluff', 'diplomacy', 'disguise', 'handleAnimal', 'intimidate', 'perform', 'useMagicDevice']
-            };
-    
-            var ability = _.findKey(skillAbilities, function(obj) {
-                return _.indexOf(obj, skillName) > -1;
-            });
-    
-            return this.getAbilityModifier(ability);
+        getSkillAttributeModifier: function(skill) {
+            return this.getAttributeModifier(skill.governingAttribute);
         },
     
-        getSkillModifier: function(skillName) {
+        getSkillModifier: function(skill) {
+            var skillName = skill.shortName;
             var skillRanks = _.get(this.character.skills, skillName);
             if (skillRanks === undefined) {
                 console.error('Attempted to get modifier for invalid skill: %s', skillName);
                 return 0;
             }
     
-            var skillsThatRequireTraining = ['disableDevice', 'handleAnimal', 'knArcana', 'knDungeoneering', 'knEngineering',
-                'knGeography', 'knHistory', 'knLocal', 'knNature', 'knNobility', 'knPlanes', 'knReligion', 'linguistics',
-                'profession', 'sleightOfHand', 'Spellcraft', 'useMagicDevice'];
-    
-            var requiresTraining = _.indexOf(skillsThatRequireTraining, skillName) > -1;
-            var classSkill = this.isClassSkill(skillName);
-            var skillAbilityModifier = this.getSkillAbilityModifier(skillName);
+            var requiresTraining = skill.requiresTraining;
+            var classSkill = this.isClassSkill(skill);
+            var skillAbilityModifier = this.getSkillAttributeModifier(skill);
             var bonusEffects = this.getCalculatedEffect(skillName);
     
             if (skillRanks == 0) {
@@ -223,7 +239,7 @@ pfcmServices.factory('characterService', function() {
         recalculateCalculatedEffects: function() {
             var self = this;
             var affectingArrays = [
-                this.character.abilities,
+                this.getCharacterAbilities(),
                 this.character.effects,
                 this.character.feats,
                 this.character.weapons,
