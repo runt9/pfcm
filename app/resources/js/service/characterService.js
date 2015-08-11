@@ -144,6 +144,11 @@ pfcmServices.factory('characterService', function() {
     
         isClassSkill: function(skill) {
             var retVal = false;
+            // Everybody gets craft and profession as class skills
+            if (skill == Skill.CRAFT || skill == Skill.PROFESSION) {
+                return true;
+            }
+
             _.forEach(this.character.classes, function(classObj) {
                 if (_.contains(classObj.classRef.classSkills, skill)) {
                     retVal = true;

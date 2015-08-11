@@ -2,7 +2,8 @@ function ClassRepository() {
     BaseRepository.call(this);
 
     this.repository = [
-        classFighter
+        classBarbarian, classBard, classCleric, classDruid, classFighter, classMonk,
+        classPaladin, classRanger, classRogue, classSorcerer, classWizard
     ];
 }
 
